@@ -1,0 +1,405 @@
+
+/*
+    ============================================================
+        Sidebar Start
+    ============================================================
+*/
+.widget{
+    float: left;
+    width: 100%;
+}
+/* Widget Title Css Start*/
+.widget-title{
+    float: left;
+    width: 100%;
+}
+.sidebar {
+    float: left;
+    width: 100%;
+    background-color: #fff;
+}
+.sidebar .widget {
+    margin: 0 0 30px;
+    border-color: #000;
+    border-style: solid;
+    border-width: 6px 0 0 0;
+    padding: 27px 30px 30px;
+    box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.15);
+}
+.sidebar .widget-title {
+    font-weight: 600;
+    margin: 0 0 25px;
+}
+
+
+
+
+/*
+      ============================================================
+           Default Widget Start
+      ============================================================
+*/
+.widget_rss,
+.widget_meta,
+.widget_pages,
+.widget_archive,
+.widget_nav_menu,
+.widget_categories,
+.widget_recent_comments,
+.widget_recent_entries {
+    float: left;
+    width: 100%;
+}
+    .widget_rss ul,
+    .widget_meta ul,
+    .widget_pages ul,
+    .widget_archive ul,
+    .widget_nav_menu ul,
+    .widget_categories ul,
+    .widget_recent_comments ul,
+    .widget_recent_entries ul {
+        margin: 0;
+        padding: 0;
+        float: left;
+        width: 100%;
+        list-style: none;
+    }
+        .widget_rss ul li,
+        .widget_meta ul li,
+        .widget_pages ul li,
+        .widget_archive ul li,
+        .widget_nav_menu ul li,
+        .widget_categories ul li,
+        .widget_recent_comments ul li,
+        .widget_recent_entries ul li {
+            float: left;
+            width: 100%;
+            text-align: right;
+            padding:0px;
+            border-style: dashed;
+            border-color: #edf1f2;
+            margin: 0px 0px;
+            border-width: 1px 0 0px;
+        }
+        .widget_rss ul li:first-child,
+        .widget_meta ul li:first-child,
+        .widget_pages ul li:first-child,
+        .widget_archive ul li:first-child,
+        .widget_nav_menu ul li:first-child,
+        .widget_categories ul li:first-child,
+        .widget_recent_comments ul li:first-child,
+        .widget_recent_entries ul li:first-child{
+            border-width: 0;
+        }
+        .widget_rss > ul > li:first-child,
+        .widget_meta > ul > li:first-child,
+        .widget_pages > ul > li:first-child,
+        .widget_archive > ul > li:first-child,
+        .widget_nav_menu > ul > li:first-child,
+        .widget_recent_comments > ul > li:first-child,
+        .widget_recent_entries > ul > li:first-child {
+            border-width: 0;
+        }
+            .widget_rss ul li a,
+            .widget_meta ul li a,
+            .widget_pages ul li a,
+            .widget_archive ul li a,
+            .widget_nav_menu ul li a,
+            .widget_categories ul li a,
+            .widget_recent_comments ul li a,
+            .widget_recent_entries ul li a {
+                width: auto;
+                display: block;
+                font-size: 14px;
+                text-align: left;
+                position: relative;
+                font-weight: normal;
+                line-height: normal;
+                padding: 11px 0px 12px;
+                text-transform: capitalize;
+                transition: all .3s ease-in-out 
+            }
+            .widget_rss ul li a:hover,
+            .widget_meta ul li a:hover,
+            .widget_pages ul li a:hover,
+            .widget_archive ul li a:hover,
+            .widget_nav_menu ul li a:hover,
+            .widget_categories ul li a:hover,
+            .widget_recent_comments ul li a:hover,
+            .widget_recent_entries ul li a:hover {
+                padding-left: 10px;
+                padding-right: 10px;
+            }
+
+            .widget_rss ul li,
+            .widget_meta ul li,
+            .widget_pages ul li,
+            .widget_archive ul li,
+            .widget_nav_menu ul li,
+            .widget_categories ul li,
+            .widget_recent_comments ul li,
+            .widget_recent_entries ul li,
+            .widget_rss ul li a,
+            .widget_meta ul li a,
+            .widget_pages ul li a,
+            .widget_archive ul li a,
+            .widget_nav_menu ul li a,
+            .widget_categories ul li a,
+            .widget_recent_comments ul li a,
+            .widget_recent_entries ul li a {
+                color: #333;
+            }
+                .widget_categories ul li a:before {
+                    font-size: 10px;
+                    content: "\ec86";
+                    margin-right: 10px;
+                    color: currentColor;
+                    display: inline-block;
+                    font-family: "OscarThemes";
+                }
+                .widget_rss ul .children,
+                .widget_meta ul .children,
+                .widget_pages ul .children,
+                .widget_archive ul .children,
+                .widget_nav_menu ul .children,
+                .widget_categories ul .children,
+                .widget_recent_comments ul .children,
+                .widget_recent_entries ul .children {
+                    padding-left: 15px;
+                    margin: 5px 0 0
+                }
+                .widget_archive li:hover,
+                .widget_categories li:hover {
+                    
+                }
+        .widget_nav_menu ul li{
+            border: none;
+            padding: 0;
+            margin: 0px 0 21px
+        }
+            .widget_nav_menu ul li a{
+                margin-bottom: 0;
+                padding: 0;
+            }
+            .widget_nav_menu ul li a:before {
+                top: -1px;
+                font-size: 9px;
+                content: "\ec86";
+                margin-right: 10px;
+                position: relative;
+                color: currentColor;
+                display: inline-block;
+                font-family: "OscarThemes";
+            }
+            .widget_nav_menu ul li a:hover{
+                padding-left:10px; 
+            }
+        .widget_nav_menu ul li:last-child{
+            margin-bottom:0; 
+        }
+    .widget_archive li:hover,
+    .widget_archive li:hover a,
+    .widget_categories li:hover,
+    .widget_categories li:hover a {
+        color: #333;
+        background-color: #f0f0f0;
+    }
+/**/
+.widget.widget_categories{
+    padding-bottom:15px ;
+}
+.widget_categories .widget-title{
+    margin: 0 0 6px;
+}
+
+
+
+
+
+
+/*
+    ============================================================
+        Recent Tours Start
+    ============================================================
+*/
+.recent-tour-wrap{
+    float: left;
+    width: 100%;
+}
+.recent-tour-thumb{
+    float: left;
+    width: 100%;
+    margin: 0 0 30px;
+}
+.recent-tour-thumb:last-child{
+    margin: 0;
+}
+.recent-tour-wrap figure{
+    width:100px;
+    height: 100px;
+    margin-right:20px; 
+    overflow: visible;
+}
+.recent-tour-thumb:hover figure img{
+    opacity: 0.5;
+}
+.recent-tour-wrap figure .price-tag{
+    bottom: 10px;
+    right: -20px;
+    font-size: 14px;
+    position: absolute;
+    border-radius: 100px;
+    padding: 1px 12px;
+}
+.recent-tour-wrap figure .price-tag::before{
+    display: none;
+}
+.recent-tour-wrap .overflow-text{
+    padding: 13px 0 /* 8px */ 0;
+}
+.recent-tour-wrap .title{
+    font-size:16px;
+    font-weight: bold;
+    margin: 0 0 20px;
+}
+.recent-tour-wrap .price-start{
+    float: right;
+    font-weight: bold;
+}
+.recent-tour-wrap .price-start del{
+    opacity: 0.5;
+}
+/*
+      ============================================================
+           Tag Widget Start
+      ============================================================
+*/
+.tags{
+    float: left;
+    width: 100%;
+    margin: 0 0 0 -10px;
+}
+    .tags a{
+        float: left;
+        width: auto;
+        font-size:12px;
+        padding: 7px 15px;
+        line-height: normal;
+        border-radius: 3px;
+        margin: 0 0 10px 10px; 
+        text-transform: capitalize;
+        border:1px solid #333; 
+    }
+    .tags a:hover{
+        color: #fff;
+    }
+/*
+      ============================================================
+           Recent Post Start
+      ============================================================
+*/
+.recent-news-wrap{
+    float: left;
+    width: 100%;
+}
+    .recent-news-thumb{
+        float: left;
+        width: 100%;
+        margin: 0 0 10px;
+    }
+        .recent-news-thumb .title{
+            font-size: 14px;
+            margin: 0 0 4px;
+            font-weight: bold;
+            text-transform: capitalize;
+        }
+            .recent-news-thumb p{
+                font-size:14px;
+                margin: 0; 
+            }
+        .widget-recent-news .recent-news-thumb:last-child{
+            margin: 0;
+        }
+        
+
+
+
+
+
+.widget_text .widget-title{
+    margin: 0 0 14px;
+}
+.textwidget{
+    float: left;
+    width: 100%;
+}
+.textwidget p{
+    float: left;
+    width: 100%;
+    margin: 0 0 13px;
+}
+.textwidget p:last-child{
+    margin: 0 0 -4px;
+}
+.textwidget img{
+    margin: 0 0 20px;
+}
+.textwidget img + p{
+    margin-top:-7px; 
+}
+
+
+
+
+.widget.widget_add{
+    padding: 0;
+    border: none;
+    box-shadow: none;
+}
+.widget_add a{
+    float: left;
+    width: 100%;
+}
+.widget_add img{
+    float: left;
+    width: 100%;
+}
+
+
+
+
+.widget-question{
+    z-index: 1;
+    text-align: center;
+    padding: 70px 30px 69px !important;
+    border: none !important;
+    background: url(../extra-images/about-widget.jpg);
+}
+.widget-question::after{
+    top: 50%;
+    left: 0;
+    right: 0;
+    z-index: -1;
+    color: #fff;
+    bottom: auto;
+    content:"\eae4" ;
+    font-size: 200px;
+    position: absolute;
+    font-family: oscarthemes;
+    transform: translateY(-50%);
+    -o-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+}
+.widget-question::before{
+    opacity: 0.7;
+}
+.widget-question *{
+    color: #fff;
+    position: relative;
+}
+.widget-question .contact-list li *{
+    float: none;
+    width: auto;
+}

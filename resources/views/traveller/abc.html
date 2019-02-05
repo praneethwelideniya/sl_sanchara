@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+       <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBwZGsVxOBgKXku6sBNI6uYxlfetT_SJeY"></script><script src="https://code.jquery.com/jquery-2.1.4.min.js"></script><script src="https://cdn.jsdelivr.net/gmap3/7.2.0/gmap3.min.js"></script></head>
+  <body>
+    <div class="map"></div>
+  <script>
+    $('.map')
+      .gmap3({
+        center:[48.8620722, 2.352047],
+        zoom:4
+      })
+      .marker([
+        {position:[48.8620722, 2.352047]}
+      ])
+      .on('click', function (marker) {
+        marker.setIcon('http://maps.google.com/mapfiles/marker_green.png');
+      });
+  </script>
+
+  </body>
+</html>

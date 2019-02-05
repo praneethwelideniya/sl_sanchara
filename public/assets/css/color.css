@@ -1,0 +1,241 @@
+/*
+      ============================================================
+           Default Color Start
+      ============================================================
+*/
+.th-cl,
+.recent-tour-thumb:hover .title a,
+.thinn-tours-full:hover .title a,
+.blog-meta li:hover *,
+.share-post .tags a:hover,
+.thinn-tours-grid:hover .title a,
+.thinn-tours-grid2:hover figure .price-tag,
+.thinn-blog-thumb:hover .date-box-holder .date-box strong,
+.thinn-blog-thumb:hover .title a,
+.thinn-event-thumb:hover .title a,
+.thinn-event-list:hover .title a,
+.thinn-tours-grid2:hover .title a,
+.thinn-pagination .page-numbers.current,
+.thinn-pagination .page-numbers:hover,
+.top-destination .title strong, .top-destination .title,
+.simple-box-2:hover .title a,
+.header-2  .navigation ul li:hover > a
+{
+  color: #0054a6 !important
+}
+/*
+      ============================================================
+           Default Background Color Start
+      ============================================================
+*/
+.th-bg,
+.cd-search,
+blockquote,
+.btn:hover,
+.btn.th-bg2:hover,
+.recent-tour-thumb figure,
+.thinn-blog-full figure,
+.thinn-blog-thumb figure,
+.thinn-tours-grid figure,
+.thinn-tours-grid2 figure,
+.services-bg::before,
+.booking-form-head::before,
+.widget-question::before,
+.no-touch .dl-menuwrapper li a:hover,
+.dl-menuwrapper li a:hover,
+.header-2  .navigation .children li:hover > a,
+.arrow-2 .slick-arrow::after,
+.header-2 .navigation::before,
+.top-destination .title::before,
+.thinn-tours-full figure,
+.daterangepicker td.active, .daterangepicker td.active:hover,
+.header-3 .navigation-outer,
+.header-3 .navigation .children li a
+{
+    background-color: #0054a6 !important
+}
+/*
+      ============================================================
+           Default Border Color Start
+      ============================================================
+*/
+.th-bdr,
+.btn:hover,
+.sidebar .widget,
+blockquote,
+.simple-box-2:hover,
+.form-control:focus
+{
+    border-color: #0054a6 !important
+}
+
+.btn{
+  --box-shadow-color: #0054a6;
+}
+
+/*
+      ============================================================
+           Default Transition Start
+      ============================================================
+*/
+a,
+label,
+h1 a,
+h2 a,
+h3 a,
+h4 a,
+h5 a,
+h6 a,
+input,
+.btn,
+.blog,
+figure,
+.title,
+.tags a,
+.title a,
+textarea,
+.navigation a,
+.blog-meta *,
+.price-tag,
+.thinn-blog-thumb,
+.thinn-blog-full,
+.thinn-blog-full *,
+.thinn-blog-thumb *,
+.thinn-tours-grid *,
+.btn,
+.title,
+.title a,
+/* .main-banner, */
+.navigation,
+.navigation ul,
+
+.tags a,
+.popup-icon,
+.blog-thumb,
+.price-table,
+.team-thumb-1,
+.blog-thumb *,
+.news-thumb *,
+.price-table *,
+.team-thumb-1 *,
+.strategy-list li,
+.price-div::after,
+.project-thumb img,
+.price-div::before,
+.accordion-1::before,
+.project-thumb .text,
+.project-thumb-2 img,
+.project-thumb-2 .text,
+.social-box .social-list,
+.project-thumb-2 .text *,
+.strategy-list li::before,
+.social-box .social-list li,
+.gallery-thumb,
+.gallery-thumb *,
+.thinn-tours-full,
+.thinn-tours-full *,
+.recent-tour-thumb,
+.recent-tour-thumb *,
+.simple-box-2,.simple-box-2 *,
+.header-2 .navigation ul li > a::before,
+.news-thumb{
+    transition: all .3s ease-in-out;
+    -moz-transition: all .3s ease-in-out;
+    -webkit-transition: all .3s ease-in-out;
+}
+/*
+      ============================================================
+           Second Background Color Start
+      ============================================================
+*/
+
+.gray-bg{
+    background-color:#f7f7f7/* #ebebea */;
+}
+
+{
+  border-color:#f7f7f7/* #ebebea */;
+}
+
+.thinn-event-thumb figure,
+.thinn-event-list figure,
+.th-gradient{
+  background: -webkit-linear-gradient(45deg, #ff89e9 0%, #0054a6 100%);
+  background: linear-gradient(45deg, #ff89e9 0%,#0054a6 100%);
+}
+/*
+      ============================================================
+           Social Icons Background Color Start
+      ============================================================
+*/
+.google-bg{
+	color: #fff !important;
+	border: none !important;
+	background-color: #f0042a;
+}
+.twitter-bg{
+	color: #fff !important;
+	border: none !important;
+	background-color: #55acee;	
+}
+.linkedin-bg{
+	color: #fff !important;
+	border: none !important;
+	background-color: #00598e;	
+}
+.facebook-bg{
+	color: #fff !important;
+	border: none !important;
+	background-color: #3b5998;	
+}
+.price-tag.red {
+    background: #ff0000;
+}
+.red{
+  background: #ff6363 !important;
+}
+.red-cl{
+  color: #ff6363;
+}
+
+.green{
+  background: #04ee7d !important;
+}
+
+.blue{
+  background: #04baee !important;
+}
+
+.yellow{
+  background: #ffd908 !important;
+}
+/*
+      ============================================================
+        Color 2 Strat
+      ============================================================
+*/
+footer.th-bg .widget_nav_menu ul li a:hover,
+.th-cl2{
+  color: /* #ff8a00 */ #fc5b62 !important;
+}
+.submit-btn.th-bg:hover,
+.btn.th-bg:hover,
+.search-icon a,
+.search-tab-nav li.active a,
+.search-tab-nav li:hover a,
+.header-3 .navigation li:hover > a,
+.header-3 .navigation li.active > a,
+.destination-tabs .tab-nav a:hover,
+.destination-tabs .tab-nav li.active a,
+.header-3 .navigation .children li:hover a,
+.th-bg .submit-btn.th-bg,
+.map-icon:hover,
+.simple-box-2:hover .th-icon-box,
+.th-bg2{
+  background: /* #ff8a00 */ #fc5b62 !important;
+}
+
+.btn.th-bg.th-bdr:hover,
+.th-cl2{
+  border-color: /* #ff8a00 */ #fc5b62 !important;
+}

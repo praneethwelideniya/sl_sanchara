@@ -1,0 +1,365 @@
+.main-wrapper{
+	overflow: hidden;
+}
+body,
+
+.slick-slide{
+	direction: rtl;
+}
+
+.slick-slider{
+	direction: ltr;
+}
+
+/**/
+.pull-left{
+	float: right !important;
+}
+.pull-right{
+	float: left !important;
+}
+.text-left{
+	text-align: right !important;
+}
+.text-right{
+	text-align: left !important;
+}
+/*Blog meta*/
+.blog-meta{
+	float: none; 
+}
+.blog-meta li:first-child {
+    margin-left: 5px ;
+    margin-right: 0 ;
+}
+.blog-meta li:last-child {
+    margin-right: 5px ;
+    margin-left: 0 ;
+}
+.blog-meta li i{
+	margin: 0 0 0 5px; 
+}
+.form-control, 
+.navigation ul li ul a, 
+.navigation ul li .sub-menu a, 
+.navigation ul li .children a,
+footer .widget .title,
+.input-field textarea, 
+.input-field .form-control, 
+.input-field .styledselect, 
+.input-field input[type="text"], 
+.input-field input[type="email"], 
+.input-field input[type="password"],
+.text-left{
+	text-align: right;
+}
+.text-center .title{
+	text-align: center;
+}
+.styledselect::after{
+	right: auto;
+	left: 10px;
+}
+/**/
+.widget_rss ul li a, 
+.widget_meta ul li a, 
+.widget_pages ul li a, 
+.widget_archive ul li a, 
+.widget_nav_menu ul li a, 
+.widget_categories ul li a, 
+.widget_recent_comments ul li a, 
+.widget_recent_entries ul li a,
+.widget_nav_menu ul li, .widget_categories ul li,
+figure,
+.thumb,
+.tags,
+.tags a,
+.widget-title,
+.navigation ul li,
+.blog-meta li a::before,
+body [class*="col-"],
+/**/
+
+.contact-list li span
+{
+	float: right;
+}
+
+.share-post .social-network,
+.header-2 .search-icon
+{
+	float: left;
+}
+
+
+
+
+.top-nav li,
+.top-nav li > i,
+.social-network li,
+.header-2 .navigation,
+.contact-list li i,
+.footer-2 .social-list li,
+.widget-presentation .btn,
+.project-thumb-2 .pro-cat,
+.strategy-list,
+.strategy-list li,
+.share-post .post-tags,
+.comments li figure,
+.contact-list.box li i, .contact-list.box li p,
+.header-2 .logo{
+	float: right;
+}
+
+
+.contact-form-info .widget-title,
+.sidebar .widget-title,
+.slick-slide{
+	text-align: right; 
+}
+{
+	text-align: left; 
+}
+
+.footer .testimonial .slick-slide{
+	text-align: center;
+}
+.woo-product .sale-tag,
+.rating{
+	left: auto;
+	right: 20px;
+}
+
+.team-thumb-2 .social-box{
+	left: 20px;
+	right: auto;
+}
+.comments ul {
+    padding: 0px 90px 0px 0px;
+}
+.comments li figure{
+	margin-left:20px;
+	margin-right:0;  
+}
+
+.blog-thumb::before {
+	left: -3px;
+	right: auto;
+    transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -webkit-transform: rotate(90deg);
+}
+.top-nav li:first-child {
+    margin-left: 10px;
+    margin-right: 0;
+}
+.top-nav li:last-child {
+    margin-right: 10px;
+    margin-left: 0;
+}
+.top-nav li > i{
+	margin-right:0;
+	margin-left:10px;  
+}
+
+.text-left .dot-style {
+    margin-left: 0px;
+    margin-right: 15px;
+}
+.text-right .dot-style {
+    margin-left:15px;
+    margin-right: 0px;
+}
+
+
+.tags{
+	margin: 0 -10px 0 0;
+}
+.tags a{
+	margin-left:0; 
+	margin-right:10px; 
+}
+.navigation ul li ul, .navigation .sub-menu, .navigation .children{
+	left: auto;
+	right: 0;
+}
+.navigation ul li.last ul, .navigation ul li.last .sub-menu, .navigation ul li.last .children {
+    left: 0;
+    right: auto;
+}
+.blog-meta li {
+    margin:0 0 0 10px  !important;
+}
+.blog-meta li:first-child {
+    margin:0 0 0 10px !important;
+}
+.blog-meta li:last-child {
+    margin:0 0 0 0px !important;
+}
+.social-list.long li{
+	border-width: 0 1px 0 0;
+}
+.news-thumb figure .date-tag {
+    right: 0;
+    left: auto;
+    border-radius: 50px 0px 0px 50px;
+}
+.contact-list li i{
+	margin-right:0;
+	margin-left:10px;  
+}
+.widget_categories ul li a::before,
+.widget_nav_menu ul li a::before {
+	-ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=0, mirror=1)";
+	-webkit-transform: scale(-1, 1);
+	-ms-transform: scale(-1, 1);
+	transform: scale(-1, 1);
+	margin-left: 10px;
+	margin-right: 0px;
+}
+.contact-list li i{
+	margin-right: 0px;
+	margin-left: 10px;
+}
+.strategy-list li{
+	padding-left:0;
+	padding-right: 20px; 
+}
+blockquote{
+	border-left: 0;
+	border-right: 5px;
+}
+.slider .banner-caption-wrapper.text-left .banner-caption {
+    float: right;
+}
+.slider .banner-caption-wrapper.text-right .banner-caption {
+    float: left;
+}
+
+/*
+=================================================
+				UP FROM 1200PX
+=================================================
+*/ 
+@media (min-width: 1200px) and (max-width: 1366px) {
+ 
+}
+/*
+=================================================
+			FROM 992PX TO 1199PX
+=================================================
+*/ 
+@media (min-width: 992px) and (max-width: 1199px) {
+	.chr-blog-small .blog-meta li a{
+		font-size: 12px;
+	}
+	.chr-blog-small .blog-meta li i {
+        margin: 0 0 0 8px;
+    }
+    .chr-blog-small .blog-meta li{
+    	margin: 0 3px;
+    }
+}
+/*
+=================================================
+			FROM 0PX TO 979PX
+=================================================
+*/ 
+@media (max-width: 991px) {
+	.banner-hotel .chr-caption-wrapper{
+		padding: 0;
+	}
+	.call-to-action-wrap{
+		padding-left:15px; 
+		padding-right:15px; 
+	}
+	.room-list-view .chr-price-thumb h6{
+		float: right;
+	}
+	.room-list-view .chr-price-thumb .chr-btn{
+		float: left;
+	}
+}
+
+/*
+=================================================
+			FROM 768PX TO 979PX
+=================================================
+*/
+
+@media (min-width: 768px) and (max-width: 979px) {
+	
+  
+}
+/*
+=================================================
+			FROM 0PX TO 767PX
+=================================================
+*/
+@media (max-width: 767px) {
+	.banner-hotel .chr-caption-wrapper{
+		padding: 0 15px;
+	}
+	.room-list-view .overflow-text{
+		padding: 25px 15px;
+	}
+	.room-list-view {
+	    padding: 10px !important;
+	}
+}
+/*
+=================================================
+			FROM 0PX TO 0PX
+=================================================
+*/
+@media (min-width: 360px) and (max-width: 640px) {
+	
+  
+}
+/*
+=================================================
+			FROM 0PX TO 0PX
+=================================================
+*/
+@media (max-width: 480px) {
+	.room-list-view .overflow-text {
+	    padding: 5px;
+	}
+	.header-1 .chr-top-info{
+		padding-left:0; 
+		padding-right:0;
+		float: none;
+		width: auto;
+		display: inline-block; 
+	}
+	.header-1 .chr-social {
+	    float: none;
+	}
+	.user-th figure {
+	    float: none;
+	    margin: 0 auto;
+	}
+	.hotel-testimonial-thumb .text::before {
+		right: 0;
+		left: 0;
+		margin: 0 auto;
+	}
+	.user-th .overflow-text{
+		margin: 0;
+		padding-top:0; 
+	}
+	.col-lg-1, .col-lg-10, .col-lg-11, .col-lg-12, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-md-1, .col-md-10, .col-md-11, .col-md-12, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-sm-1, .col-sm-10, .col-sm-11, .col-sm-12, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-xs-1, .col-xs-10, .col-xs-11, .col-xs-12, .col-xs-2, .col-xs-3, .col-xs-4, .col-xs-5, .col-xs-6, .col-xs-7, .col-xs-8, .col-xs-9{
+		width: 100%;
+	}
+	.chr-blog-small .blog-meta li i {
+	    margin: 0 0 0 10px;
+	}
+	.chr-blog-small .blog-meta li{
+		font-size: 12px;
+	}
+}
+@media (max-width: 320px){
+	
+}

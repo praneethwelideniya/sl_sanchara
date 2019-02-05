@@ -1,0 +1,805 @@
+
+/*
+=================================================
+				UP FROM 1200PX
+=================================================
+*/ 
+@media (min-width: 1367px) and (max-width: 1680px) {
+}
+/*
+=================================================
+				UP FROM 1200PX
+=================================================
+*/ 
+@media (min-width: 1200px) and (max-width: 1366px) {
+	.explor-us-section-2 .explore-text,
+	.about-caption .text {
+	    padding: 131px 100px 138px;
+	}
+}
+/*
+=================================================
+			FROM 992PX TO 1199PX
+=================================================
+*/ 
+@media (min-width: 992px) and (max-width: 1199px) {
+	.explor-us-section .explore-text {
+	    padding-top: 102px;
+	}
+	.explor-map {
+	    width: 400px;
+	    height: 400px;
+	    padding: 60.5px 0px 0;
+	}
+	.explor-map h3{
+		font-size: 40px;
+	}
+	.explor-map h2{
+		font-size: 110px;
+	}
+	.col-md-2 .section-heading .title{
+		font-size:35px;
+	}
+
+	.about-style-3 p {
+        max-height: 49px;
+        overflow: hidden;
+        float: left;
+    }
+	.main-banner .banner-caption-wrapper{
+		top: 40.7%;
+	}
+	.about-caption.d-flex .text{
+		padding-left:30px; 
+		padding-right:30px; 
+	}
+	.header-2 .navigation ul li a{
+		padding-left: 25px;
+		padding-right: 25px;
+	}
+	.search-bar{
+		max-width: 950px;
+	}
+	.explor-us-section-2 .explore-text,
+	.about-caption .text {
+	    padding: 129px 50px 136px;
+	}
+	.about-caption .text p{
+		max-height: 100px;
+		overflow: hidden;
+	}
+	.thinn-blog-grid .blog-meta li,
+	.thinn-tours-grid2 .blog-meta li{
+		font-size: 13px;
+	}
+	.thinn-blog-grid p,
+	.thinn-tours-grid2 p{
+		max-height: 100px;
+		overflow: hidden;
+	}
+	.top-destination .text {
+	    padding: 40px 30px 49px;
+	}
+	.thinn-blog-grid .date-box-holder {
+	    padding-right: 50px;
+	}
+	.thinn-blog-list figure {
+	    max-width: 50%;
+	}
+	.thinn-blog-list .text{
+		padding: 22px 30px 27px;
+	}
+	.thinn-blog-list .title{
+		overflow: hidden;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+	}
+	.thinn-blog-thumb p {
+	    overflow: hidden;
+	    max-height: 149px;
+	}
+	.about-style-2 .text {
+	    padding: 14px 0;
+	}
+	.counter-thumb.style-2{
+		padding-right: 30px;
+		padding-left: 30px;
+	}
+	.simple-box{
+		padding-right: 20px;
+		padding-left: 20px;
+	}
+	.simple-box .title{
+		font-size: 13px;
+	}
+	.team-box .text {
+	    padding: 76px 60px 79px;
+	}
+	.post-nav-item .title{
+		font-size: 14px !important;
+	}
+	.recent-tour-wrap .title{
+		font-size: 14px;
+	}
+	.recent-tour-wrap .price-start{
+		font-size: 12px;
+	}
+	.recent-tour-wrap .overflow-text {
+	    padding: 6px 0 0;
+	}
+	.sub-banner .title{
+		font-size: 9vw;
+		line-height: 6vw;
+	}
+	.thinn-event-list p {
+	    overflow: hidden;
+	    max-height: 120px;
+	}
+}
+/*
+=================================================
+			FROM 0PX TO 979PX
+=================================================
+*/ 
+@media (max-width: 991px) {
+	.qty-box .qty-box-content{
+		min-width: 210px;
+		left: 50%;
+		margin-left:-105px;
+		right: auto; 
+	}
+	.main-banner .banner-caption-wrapper{
+		top: 42%;
+	}
+	.about-caption.d-flex .text{
+		padding-left:30px; 
+		padding-right:30px; 
+	}
+	.d-flex.about-caption .text .title{
+		font-size: 35px;
+	}
+	.d-flex.about-caption .text p{
+		max-height: 45px;
+	}
+	.list-slider .slick-list{
+		padding-right:10%; 
+	}
+	.list-slider .thinn-tours-grid2 .title{
+		overflow: hidden;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+	}
+
+
+
+	.widget_add img,
+	.textwidget img{
+		float: none;
+		width: auto;
+		display: block;
+		margin-left:auto;
+		margin-right:auto;
+	}
+	.header-2 .logo{
+		top: 0;
+	}
+	.header-2 .navigation-outer{
+		padding: 20px 0;
+	}
+	nav.navigation > ul{
+		display: none
+	}
+	.header-2 .dl-menuwrapper{
+		display: block;
+		margin-left:20px; 
+	}
+	.header-2 .navigation-outer .cd-search-trigger{
+		float: right;
+		padding-top: 3px;
+		padding-bottom: 0;
+		margin: 17px 0;
+		border-width: 0 1px 0 0;
+	}
+	.header-2 .navigation-outer .cd-search-trigger span::after{
+		border-color: #333;
+	}
+	.header-2 .navigation-outer .cd-search-trigger span::before{
+		background: #333;
+	}
+	.search-bar{
+		padding: 30px;
+	}
+	.sub-banner.mb-85, .main-banner.mb-85 {
+	    margin-bottom: 55px;
+	}
+	.main-banner .search-bar-outer{
+		bottom: -55px;
+	}
+	.sub-banner .search-bar-outer:last-child {
+	    margin-bottom: -55px;
+	}
+	.search-bar-outer{
+	    padding:0 15px;
+	}
+	.banner-caption .title-bigger{
+		font-size: 50px;
+	}
+	.banner-caption .title-medium{
+		font-size: 40px;
+	}
+	.explor-us-section-2 .explore-text,
+	.about-caption .text {
+	    padding: 117px 30px 123px;
+	}
+	.explor-us-section-2 .explore-text p,
+	.about-caption .text p{
+		max-height: 125px;
+		overflow: hidden;
+	}
+	.top-destination .text {
+	    padding: 21px 15px 30px 0;
+	}
+	.top-destination .title{
+		font-size:20px;
+		margin-bottom: 24px;
+		padding-bottom: 30px;
+	}
+	.top-destination .title strong{
+		font-size: 40px;
+	}
+	.top-destination .text p {
+	    margin-bottom: 23px;
+	    max-height: 100px;
+	    overflow: hidden;
+	    float: left;
+	    width: 100%;
+	}
+	.top-destination .btn{
+		font-size: 14px;
+		padding-left: 20px;
+		padding-right: 20px;
+	}
+	.thinn-blog-list figure {
+	    max-width: 50%;
+	}
+	.thinn-blog-list .title{
+		overflow: hidden;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+	}
+	.thinn-blog-list .text {
+	    padding: 20px 30px 26px;
+	}
+	.thinn-blog-list .text p {
+	    max-height: 70px;
+	    overflow: hidden;
+	}
+	.about-style-2 .text{
+		padding: 0;
+	}
+	.about-style-2 .text p{
+		display: none;
+		float: left;
+		width: 100%;
+	}
+	.about-style-2 .text p:last-child{
+		margin: 0;
+	}
+	.about-style-2 .text p:first-of-type{
+		display: block !important;
+		overflow: hidden;
+		max-height: 165px;
+	}
+	.counter-thumb.style-2{
+		padding: 20px 20px;
+	}
+	.counter-thumb.style-2 i{
+		font-size: 50px;
+	}
+	.counter-thumb.style-2 h4{
+		font-size: 30px;
+	}
+	.counter-thumb.style-2 h5{
+		font-size: 15px;
+	}
+	.explore-thumb{
+		min-height: 450px;
+	}
+	.explor-map{
+		left: -30px;
+		width: 350px;
+		height: 350px;
+		padding: 74px 0px 0;
+	}
+	.explor-map h3{
+		font-size: 30px;
+		line-height: 30px;
+	}
+	.explor-map h2{
+		font-size: 80px;
+		line-height: 80px;
+		margin-bottom:25px; 
+	}
+	.simple-box .title{
+		font-size: 13px;
+	}
+	.team-box .text .title{
+		font-size: 30px !important;
+	}
+	.team-box .text p{
+		overflow: hidden;
+		max-height: 165px;
+	}
+	.team-box .text {
+	    padding: 30px 40px 33px;
+	}
+	.slick-slider.row{
+		float: none;
+		width: auto;
+	}
+	.sub-banner .title{
+		font-size: 9.5vw;
+		line-height: 7vw;
+		margin: 0 0 -2px;
+	}
+	.thinn-event-list p {
+	    overflow: hidden;
+	    max-height: 120px;
+	}
+}
+
+/*
+=================================================
+			FROM 768PX TO 979PX
+=================================================
+*/
+
+@media (min-width: 768px) and (max-width: 979px) {
+	
+  
+}
+/*
+=================================================
+			FROM 0PX TO 767PX
+=================================================
+*/
+@media (max-width: 767px) {
+	.explor-us-section.d-flex {
+	    display: inherit !important;
+	}
+	.explor-us-section > div{
+		width: 100% !important;
+	}
+	.explor-us-section .explore-text {
+	    padding:30px 30px;
+	}
+	.explor-map{
+		left: 0;
+		right: 0;
+		margin: 0 auto;
+	}
+	.header-2 .navigation-outer {
+	    padding: 15px 0;
+	}
+	.header-2  .dl-menuwrapper .dl-menu{
+		margin-top:25px; 
+	}
+	.header-2 .logo{
+		padding: 0;
+	}
+	.header-2 .dl-menuwrapper {
+		margin: 10px 0 0 15px;
+	}
+	.header-2 .navigation-outer .cd-search-trigger{
+		margin: 10px 0;
+	}
+	.explor-us-section-2.d-flex,
+	.d-flex.about-caption{
+		display: block !important;
+	}
+	.d-flex.about-caption .text{
+		padding: 23px 30px 30px;
+	}
+	.explor-us-section-2.d-flex .map-canvas,
+	.explor-us-section-2.d-flex .map-wrap{
+		min-height: 350px;
+	}
+	footer, .section, section{
+		padding: 50px 0 20px;
+	}
+	.sub-banner{
+		padding-top: 100px;
+	}
+	/* .sub-banner .title{
+		font-size: 14vw;
+		line-height: 47px;
+	} */
+	.sub-banner .search-bar-outer,
+	.main-banner .search-bar-outer{
+		bottom: auto;
+		position: static;
+		padding: 30px 15px;
+		background: #f7f7f7;
+	}
+	.sub-banner .search-bar-outer .search-bar,
+	.main-banner .search-bar-outer .search-bar{
+		border-radius: 0;
+		padding: 30px 30px 0;
+	}
+	.sub-banner .search-bar-outer .search-bar .input-field,
+	.main-banner .search-bar-outer .search-bar .input-field{
+		margin: 0 0 30px;
+	}
+	.sub-banner .search-bar-outer:last-child,
+	.mb-85{
+		margin: 0 !important;
+	}
+	.main-banner .banner-caption-wrapper{
+		top: 49%;
+	}
+	.banner-caption .title-bigger {
+	    font-size: 30px;
+	}
+	.banner-caption .title-medium {
+	    font-size: 20px;
+	}
+	.banner-caption .btn{
+		font-size: 12px;
+	}
+	.explor-us-section-2 .explore-text, .about-caption .text {
+	    padding: 23px 30px 30px;
+	}
+	.section-heading .title {
+    	font-size: 36px;
+    }
+    .explor-us-section-2 .explore-text,
+    .explor-us-section-2 > div{
+    	width: 100%;
+    }
+    .explor-us-section-2 #map-canvas{
+    	min-height: 300px;
+    	max-height: 300px;
+    }
+    .top-destination .text {
+	    padding-right: 30px;
+	    padding-left: 30px;
+	}
+	.thinn-blog-list figure {
+	    max-width: 100%;
+	}
+	.thinn-blog-list .text{
+		float: left;
+		width: 100%;
+	}
+	.about-style-2 .text{
+		padding: 24px 30px 0;
+		background:#f5f5f5 ;
+	}
+	.about-caption .bg-thumb{
+		min-height: 300px;
+	}
+	.team-box > *{
+		width: 100%;
+	}
+	.newsletter-widget{
+		padding:43px 0 50px ;
+	}
+	.thinn-blog-full .date-box{
+		width: 85px;
+		height: 85px;
+		padding: 8px 0 0;
+	}
+	.thinn-blog-full strong{
+		font-size: 8vw;
+		line-height: 30px;
+		line-height: 40px !important;
+	}
+	.thinn-pagination{
+		float: left;
+		width: 100%;
+	}
+	.list-box li{
+		font-size: 14px;
+	}
+	.post-nav-item p{
+		display: none;
+	}
+	.post-nav-item .title{
+		font-size: 16px !important;
+	}
+	.comments li .children {
+		float: left;
+		width: 100%;
+	    padding-left: 20px;
+	}
+	.thinn-tours-full .title{
+		font-size: 22px !important;
+	}
+	.thinn-tour-tips{
+		text-align: center;
+	}
+	.thinn-tour-tips figure{
+		max-width: 100%;
+		margin: 0 0 15px;
+	}
+	.thinn-tour-tips figure img{
+		width: auto;
+		float: none;
+	}
+	.thinn-tour-tips .text{
+		float: left;
+		width: 100%;
+	}
+	.tour-info-list{
+		font-size: 12px;
+	}
+	.theme-tab li a{
+		padding-left: 15px;
+		padding-right: 15px;
+	}
+	.thinn-event-list figure {
+		width: 100%;
+		max-width: 100%;
+	}
+	.thinn-event-list .text{
+		float: left;
+		width: 100%;
+		padding: 25px 30px 30px;
+	}
+	.info-title{
+		margin-right:10px; 
+	}
+	.event-info-widget{
+		font-size: 14px;
+	}
+	.count_box{
+		min-width: 70px;
+	}
+	/* .count_box:first-child{
+		margin-left:0; 
+	}
+	.count_box:last-child{
+		margin-right:0; 
+	} */
+	.contact-map #map-canvas{
+	    min-height: 300px;
+	}
+}
+/*
+=================================================
+			FROM 0PX TO 0PX
+=================================================
+*/
+@media (min-width: 732px) and (max-width: 738px) {
+	
+}
+/*
+=================================================
+			FROM 0PX TO 0PX
+=================================================
+*/
+@media (max-width: 480px) {
+	.slick-list{
+		margin: 0 !important;
+	}
+	.slick-list [class*="col-"]{
+		padding: 0 !important;
+	}
+	.gallery-slider .slick-list,
+	.list-slider .slick-list {
+	    padding: 0%;
+	}
+	.counter-wrap .col-xs-6{
+		width: 100%;
+	}
+	.header-2 .logo{
+	    max-width: 130px;
+	    margin: 0;
+	}
+	.header-2 .dl-menuwrapper{
+		margin-top:0; 
+	}
+	.header-2 .cd-search-trigger span::after {
+	    right: 0;
+	    width: 25px;
+	    height: 25px;
+	}
+	.header-2 .cd-search-trigger.is-visible span::after {
+   		height: 2px;
+		width: 100%;
+	}
+	.cd-search-trigger span::before {
+	    left: -12px;
+	    height: 2px;
+	    width: 17px;
+	}
+	.header-2 .navigation-outer .cd-search-trigger {
+	    margin: 0px 0;
+	    padding:3px 15px 0 0;
+	}
+	.contact-form {
+	    padding: 23px 30px 30px;
+	}
+	.count_box{
+		margin-top:5px; 
+		margin-bottom:5px; 
+	}
+	.explor-map {
+	    width: 280px;
+	    height: 280px;
+	    padding: 39px 0px 0;
+	}
+	.explor-us-section .explore-text{
+		text-align: center;
+	}
+/* 	.header-2 .logo{
+		width: 100%;
+		margin: 0;
+		padding: 20px 0;
+		border-bottom: 1px solid #f5f5f5;
+		text-align: center;
+	}
+	.header-2 .navigation-outer{
+		padding: 0;
+	}
+	.header-2 .navigation-outer .cd-search-trigger{
+		float: left;
+		padding:2px 0 0;
+		border: none;
+	} */
+	.banner-caption-wrapper{
+		display: none;
+	}
+	footer [class*="col-xs-"],
+	.search-bar-outer [class*="col-xs-"]{
+		width: 100%;
+	}
+	.explore-text .title,
+	.about-caption .text .title{
+		font-size: 35px;
+	}
+	.section-heading .title {
+	    font-size: 28px;
+	}
+	.thinn-blog-thumb .blog-meta li,
+	.thinn-tours-grid2 .blog-meta li{
+		font-size: 13px;
+	}
+	.thinn-tours-grid2 .text {
+	    padding: 16px 20px 20px;
+	}
+	.top-destination .btn{
+		font-size: 12px;
+		padding: 14px;
+		margin-right:10px; 
+	}
+	.thinn-blog-thumb .text {
+	    padding: 16px 20px 20px;
+	}
+	.thinn-blog-list .title{
+		font-size: 18px !important;
+	}
+	.newsletterform input[type="submit"].submit-btn {
+	    padding: 10px 20px;
+	}
+	.newsletter-widget .form-control{
+		padding-right: 125px;
+		font-size: 20px;
+	}
+	.top-destination .text {
+	    padding: 11px 20px 20px;
+	}
+	.team-box .text {
+	    padding: 20px 30px 23px;
+	}
+	.team-box .text .title{
+		font-size: 24px !important;
+	}
+	.thinn-pagination{
+		padding: 10px 20px 13px;
+	}
+	.thinn-pagination .page-numbers{
+		margin: 0 10px;
+	}
+	.thinn-blog-full .date-box {
+	    width: 75px;
+	    height: 75px;
+	    padding: 5px 0 0
+	}
+	.thinn-blog-full .title{
+		font-size: 22px !important;
+	}
+	.blog-meta li{
+		font-size: 13px;
+	}
+	.blog-detail-section .detail-title{
+		font-size: 22px !important;
+	}
+	.list-box {
+	    padding: 15px 20px 15px;
+	}
+	.share-post span.pull-left {
+	    width: 100%;
+	    margin: 0 0 15px;
+	    text-align: center;
+	}
+	.share-post .social-list {
+	    float: right;
+	    width: 100%;
+	    text-align: center;
+	}
+	.share-post .social-list li{
+		float: none;
+		display: inline-block;
+	}
+	.post-nav-item .title {
+	    font-size: 14px !important;
+	}
+	.comment-holder figure{
+		float: none;
+		display: block;
+		margin: 0 auto 25px;
+	}
+	.comment-holder .overflow-text{
+		float: left;
+		width: 100%;
+		text-align: center;
+	}
+	.comment-holder .reply{
+		float: none;
+		display: inline-block;
+	}
+	.tour-booking-form{
+		max-width: 300px;
+		min-width: 300px;
+	}
+	.tour-booking-form input[type="submit"].submit-btn{
+		float: left;
+		width: 100%;
+		padding-left: 15px;
+		padding-right: 15px;
+	}
+	.booking-form-head, .form-tabs form{
+		padding-left: 20px;
+		padding-right: 20px;
+	}
+	.tour-info-widget .col-xs-6{
+		width: 100%;
+	}
+	.list-row .list-title{
+		float: left;
+		width: 100%;
+		margin: 0 0 30px;
+	}
+	.list-row .overflow-text{
+		float: left;
+		width: 100%;
+	}
+	.tours-tabs-map .map-canvas {
+	    min-height: 270px;
+	}
+	.tour-review .title{
+		width: 100%;
+		margin: 0 0 15px;
+	}
+	.tour-review span.pull-right{
+		float: left !important;
+		margin: 0 0 10px;
+	}
+	.thinn-event-list .title{
+		font-size: 16px !important;
+	}
+	.title{
+		overflow: hidden;
+		white-space: nowrap;
+		text-overflow:ellipsis;
+	}
+}
+@media (max-width: 382px) {
+	
+}
+
+
+
+
+

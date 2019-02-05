@@ -1,0 +1,55 @@
+        <div id="uploadModal" class="modal fade" role="dialog">
+          <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">File upload form</h4>
+                </div>
+                <div class="modal-body">
+                    <img id="blah" src="#" alt="your image" />
+                    <!-- Form -->
+                    <form method='post' action='' enctype="multipart/form-data">
+                        Select file : <input  type='file' name='pic' id='pic' class='form-control' onchange="readURL(this);"><br>
+                        <input type='button' class='btn btn-info' value='Upload' id='upload'>
+                    </form>
+
+                    <!-- Preview-->
+                    <div id='preview'></div>
+                </div>
+                
+            </div>
+
+          </div>
+        </div>
+
+
+
+        images in article
+
+
+        <div class="container">
+    <div class="row">
+        <div v-for="file in files" v-cloak>
+        <div class="col-md-4 col-sm-6">
+            <!-- Event Thumb Start -->
+            <div class="thinn-event-thumb thinn-event-grid mb-30">
+                <figure>
+                    <img src="{{asset('users/'.Auth::user()->id.'/article/'.$image->src.'')}}" alt="" height="250"> 
+                    <a class="{{$image->pivot->image_type=='cover'?'set-cover-icon':'set-cover-icon setted-cover'}}" href="{{route('add-romove-article-cover',$image->id)}}">
+                    </a>
+                </figure>
+            </div>
+            <!-- /Event Thumb End -->
+        </div>
+        </div>
+        <div class="col-md-12">
+            <!-- Pagination Start-->
+            <div class="thinn-pagination text-center">
+                {{$images->links()}}
+            </div>
+            <!-- Pagination End-->
+        </div>
+    </div>
+</div><!-- / Container -->
