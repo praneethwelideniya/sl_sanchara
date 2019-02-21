@@ -167,6 +167,9 @@ body.modren-layout .sidebar{
        HEADER DEFAULT CSS START #HEADER
     ==============================================================
 */
+.article-body{
+  font-size:20px;
+}
 .top-bar{
     float: left;
     width: 100%;

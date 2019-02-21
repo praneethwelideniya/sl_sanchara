@@ -10,6 +10,7 @@ use App\Models\Category;
 use App\Models\Keyword;
 use App\Models\User;
 use App\Models\Image;
+use App\Models\Trip;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
@@ -27,8 +28,6 @@ class ArticleController extends Controller
 
     public function show($articleId, $articleHeading = '')
     {
-        $clientIP = $_SERVER['REMOTE_ADDR'] ?? '';
-
         $article = Article::where('id', $articleId)
             ->published()
             ->notDeleted()
@@ -49,49 +48,9 @@ class ArticleController extends Controller
         if (is_null($article)) {
             return redirect()->route('home')->with('warningMsg', 'Article not found');
         }
-
-        event(new ArticleHit($article, $clientIP));
-
-        $article->isEditable = auth()->check()
-            && (auth()->user()->hasRole([
-                    'owner',
-                    'admin'
-                ])
-                || $article->user->id == auth()->user()->id);
-
-        $relatedArticles = $this->getRelatedArticles($article);
+        
         $images=$this->getArticleImages($articleId);
-        return view('traveller.article', compact('article', 'relatedArticles','images'));
-    }
-
-    private function getRelatedArticles(Article $article)
-    {
-        return Article::where('category_id', $article->category->id)
-            ->where('id', '!=', $article->id)
-            ->published()
-            ->latest()
-            ->take(3)
-            ->get();
-    }
-
-    public function edit($articleId)
-    {
-        $article = Article::find($articleId);
-
-        if (is_null($article)) {
-            return redirect()->route('home')->with('errorMsg', 'Article not found');
-        }
-
-        if ($this->hasArticleAuthorization(Auth::user(), $article)) {
-            return redirect()->route('home')->with('errorMsg', 'Unauthorized request');
-        }
-
-        $keywords = implode(' ', $article->keywords->pluck('name')->toArray());
-        $article = json_decode(json_encode($article));
-        $article->keywords = $keywords;
-
-        $categories = Category::active()->get();
-        return view('admin.article.update', compact('categories', 'article','keywords'));
+        return view('traveller.article', compact('article','images'));
     }
 
     public function update(Request $request, $articleId)
@@ -101,9 +60,9 @@ class ArticleController extends Controller
             return response()->json(['errorMsg' => 'Article not found'], Response::HTTP_NOT_FOUND);
         }
 
-        if ($this->hasArticleAuthorization(Auth::user(), $article)) {
-            return response()->json(['errorMsg' => 'Unauthorized request'], Response::HTTP_UNAUTHORIZED);
-        }
+        if (!auth()->user()->can('secureAccess', $article)) {
+                return redirect('/');
+            }
         $updatedArticle = $request->only(['heading', 'content', 'category_id', 'language']);
         $updatedArticle['is_comment_enabled'] = $request->input('is_comment_enabled');
         $keywordsToAttach = array_unique(explode(' ', $request->get('keywords')));
@@ -135,7 +94,11 @@ class ArticleController extends Controller
         $images=null;
         if($id!=null){
             $article=Article::find($id);
+            if (!auth()->user()->can('secureAccess', $article)) {
+                return redirect('/');
+            }
             $images=$this->getArticleImages($id);
+            
         }
         
         return view('traveller.create_article', compact('categories','article','images'));
@@ -146,7 +109,7 @@ class ArticleController extends Controller
 
         $clientIP = $_SERVER['REMOTE_ADDR'];
 
-        $newArticle = $request->only(['heading', 'content', 'category_id', 'language']);
+        $newArticle = $request->only(['heading', 'content', 'category_id', 'language','keywords']);
         $newArticle['is_comment_enabled'] = $request->input('is_comment_enabled');
         $newAddress = ['ip' => $clientIP];
 
@@ -159,17 +122,17 @@ class ArticleController extends Controller
             $newArticle['user_id'] = Auth::user()->id;
             $newArticle = Article::create($newArticle);
             //add keywords
-            $keywordsToAttach = array_unique(explode(' ', $request->get('keywords')));
-            foreach ($keywordsToAttach as $keywordToAttach) {
-                $newKeyword = Keyword::firstOrCreate(['name' => $keywordToAttach]);
-                $newArticle->keywords()->attach($newKeyword->id);
-            }
+            // $keywordsToAttach = array_unique(explode(',', $request->get('keywords')));
+            // foreach ($keywordsToAttach as $keywordToAttach) {
+            //     $newKeyword = Keyword::firstOrCreate(['name' => $keywordToAttach]);
+            //     $newArticle->keywords()->attach($newKeyword->id);
+            // }
             //Notify all subscriber about the new article
             // foreach (User::getSubscribedUsers() as $subscriber) {
             //     Mail::to($subscriber->email)->queue(new NotifySubscriberForNewArticle($newArticle, $subscriber));
             // }
         } catch (\PDOException $e) {
-            dd($e);
+            
             // Log::error($this->getLogMsg($e));
             // return response()->json(['errorMsg' => $this->getMessage($e)], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
@@ -185,8 +148,8 @@ class ArticleController extends Controller
             return redirect()->route('home')->with('errorMsg', 'Article not found');
         }
 
-        if ($this->hasArticleAuthorization(Auth::user(), $article)) {
-            return redirect()->route('home')->with('errorMsg', 'Unauthorized request');
+        if (!auth()->user()->can('secureAccess', $article)) {
+            return redirect('/');
         }
         try {
             $article->update([
@@ -197,115 +160,179 @@ class ArticleController extends Controller
             Log::error($this->getLogMsg($e));
             return redirect()->back()->with('errorMsg', $this->getMessage($e));
         }
-        return redirect()->route('admin-articles')->with('successMsg', 'Article updated');
+        return redirect()->route('get-article',$articleId);
     }
 
-    public function search($queryString=null)
+    public function search($type,$queryString=null)
     {
-
+        if($type=='place'){
             $articles = Article::published()->notDeleted();    
-        
-        if($queryString!=null && strlen($queryString)>3){
-        $articles=$articles
-        ->where('heading', 'LIKE', "%$queryString%")
-        ->orWhere('content', 'LIKE', "%$queryString%");
-        }
+            
+            if($queryString!=null && strlen($queryString)>3){
+            $articles=$articles
+            ->where('heading', 'LIKE', "%$queryString%")
+            ->orWhere('content', 'LIKE', "%$queryString%");
+            }
 
             $articles=$articles->latest()->paginate(9);
 
-        // $articles = $articles->map(function ($item, $key) {
-        //     $item['d']=$item->published_at->format('d');
-        //     $item['M']=$item->published_at->format('M');
-        //     $item['Y']=$item->published_at->format('Y');
-        //     return $item;
-        // });
-        $articles->getCollection()->transform(function($item, $key) {
-            return [
-                'heading' =>$item->heading,
-                'img_src' =>'users/'.$item->user->id.'/article/'.$item->images()->wherePivot('image_type','cover')->first()['src'],
-                'id'=>$item->id,
-                'd' => $item->published_at->format('d'),
-                'M' => $item->published_at->format('M'),
-                'Y' => $item->published_at->format('Y'),
-            ];
-        });
+            $articles->getCollection()->transform(function($item, $key) {
+                return [
+                    'heading' =>$item->heading,
+                    'img_src' =>'users/article/'.$item->images()->wherePivot('image_type','cover')->first()['src'],
+                    'id'=>$item->id,
+                    'd' => $item->published_at->format('d'),
+                    'M' => $item->published_at->format('M'),
+                    'Y' => $item->published_at->format('Y'),
+                ];
+            });
 
 
-            $response = [
-                'pagination' => [
-                    'total' => $articles->total(),
-                    'per_page' => $articles->perPage(),
-                    'current_page' => $articles->currentPage(),
-                    'last_page' => $articles->lastPage(),
-                    'from' => $articles->firstItem(),
-                    'to' => $articles->lastItem()
-                ],
-                'data' => $articles
-            ];
-       
+                $response = [
+                    'pagination' => [
+                        'total' => $articles->total(),
+                        'per_page' => $articles->perPage(),
+                        'current_page' => $articles->currentPage(),
+                        'last_page' => $articles->lastPage(),
+                        'from' => $articles->firstItem(),
+                        'to' => $articles->lastItem()
+                    ],
+                    'data' => $articles
+                ];
+           
 
-        return response()->json($response);
+            return response()->json($response);
+        }
+        elseif ($type=='trip') {
+            $trips=Trip::where('type','public');
+            if($queryString!=null && strlen($queryString)>3){
+            $trips=$trips
+            ->where('name', 'LIKE', "%$queryString%")
+            ->orWhere('start_location', 'LIKE', "%$queryString%")
+            ->orWhere('end_location', 'LIKE', "%$queryString%")
+            ->orWhere('description', 'LIKE', "%$queryString%");
+            }
+            $trips=$trips->latest()->paginate(9);
+            $trips->getCollection()->transform(function($item, $key) {
+                return [
+                    'name' =>$item->name,
+                    'img_src' =>'trip/transport.jpg',
+                    'id'=>$item->id,
+                    'start_time' => $item->start_time->format('Y-M-d'),
+                    'end_time' => $item->end_time->format('Y-M-d'),
+                    'status' => $item->status
+                ];
+            });
+
+
+                $response = [
+                    'pagination' => [
+                        'total' => $trips->total(),
+                        'per_page' => $trips->perPage(),
+                        'current_page' => $trips->currentPage(),
+                        'last_page' => $trips->lastPage(),
+                        'from' => $trips->firstItem(),
+                        'to' => $trips->lastItem()
+                    ],
+                    'data' => $trips
+                ];
+           
+
+            return response()->json($response);
+            
+        }
     }
-public function searchUserArticles($userId,$queryString=null)
+    public function searchUserArticles($userId,$type,$queryString=null)
     {
- 
-        $articles=User::find($userId)->articles()->published()->notDeleted();
-        
-        if($queryString!=null && strlen($queryString)>3){
-        $articles=$articles
-        ->where('heading', 'LIKE', "%$queryString%")
-        ->orWhere('content', 'LIKE', "%$queryString%");
+        if($type=='place'){
+            $articles=User::find($userId)->articles()->published()->notDeleted();
+            
+            if($queryString!=null && strlen($queryString)>3){
+            $articles=$articles
+            ->where('heading', 'LIKE', "%$queryString%")
+            ->orWhere('content', 'LIKE', "%$queryString%");
+            }
+
+                $articles=$articles->latest()->paginate(9);
+
+            // $articles = $articles->map(function ($item, $key) {
+            //     $item['d']=$item->published_at->format('d');
+            //     $item['M']=$item->published_at->format('M');
+            //     $item['Y']=$item->published_at->format('Y');
+            //     return $item;
+            // });
+            $articles->getCollection()->transform(function($item, $key) {
+                return [
+                    'heading' =>$item->heading,
+                    'img_src' =>'users/article/'.$item->images()->wherePivot('image_type','cover')->first()['src'],
+                    'id'=>$item->id,
+                    'd' => $item->published_at->format('d'),
+                    'M' => $item->published_at->format('M'),
+                    'Y' => $item->published_at->format('Y'),
+                ];
+            });
+
+
+                $response = [
+                    'pagination' => [
+                        'total' => $articles->total(),
+                        'per_page' => $articles->perPage(),
+                        'current_page' => $articles->currentPage(),
+                        'last_page' => $articles->lastPage(),
+                        'from' => $articles->firstItem(),
+                        'to' => $articles->lastItem()
+                    ],
+                    'data' => $articles
+                ];
+           
+
+            return response()->json($response);
         }
+        elseif ($type=='trip') {
+            if(!Auth::guest() && Auth::user()->id==$userId){
+                   $trips=User::find($userId)->trips(); 
+            }
+            else{
+                $trips=User::find($userId)->trips()->where('type','public')->wherePivot('status', 'confirmed');        
+            }    
+            if($queryString!=null && strlen($queryString)>3){
+            $trips=$trips
+            ->where('name', 'LIKE', "%$queryString%")
+            ->orWhere('start_location', 'LIKE', "%$queryString%")
+            ->orWhere('end_location', 'LIKE', "%$queryString%")
+            ->orWhere('description', 'LIKE', "%$queryString%");
+            }
+            $trips=$trips->latest()->paginate(9);
+            $trips->getCollection()->transform(function($item, $key) {
+                return [
+                    'name' =>$item->name,
+                    'img_src' =>'trip/transport.jpg',
+                    'id'=>$item->id,
+                    'start_time' => $item->start_time->format('Y-M-d'),
+                    'end_time' => $item->end_time->format('Y-M-d'),
+                    'status' => $item->status
+                ];
+            });
 
-            $articles=$articles->latest()->paginate(9);
 
-        // $articles = $articles->map(function ($item, $key) {
-        //     $item['d']=$item->published_at->format('d');
-        //     $item['M']=$item->published_at->format('M');
-        //     $item['Y']=$item->published_at->format('Y');
-        //     return $item;
-        // });
-        $articles->getCollection()->transform(function($item, $key) {
-            return [
-                'heading' =>$item->heading,
-                'img_src' =>'users/'.$item->user->id.'/article/'.$item->images()->wherePivot('image_type','cover')->first()['src'],
-                'id'=>$item->id,
-                'd' => $item->published_at->format('d'),
-                'M' => $item->published_at->format('M'),
-                'Y' => $item->published_at->format('Y'),
-            ];
-        });
+                $response = [
+                    'pagination' => [
+                        'total' => $trips->total(),
+                        'per_page' => $trips->perPage(),
+                        'current_page' => $trips->currentPage(),
+                        'last_page' => $trips->lastPage(),
+                        'from' => $trips->firstItem(),
+                        'to' => $trips->lastItem()
+                    ],
+                    'data' => $trips
+                ];
+           
 
-
-            $response = [
-                'pagination' => [
-                    'total' => $articles->total(),
-                    'per_page' => $articles->perPage(),
-                    'current_page' => $articles->currentPage(),
-                    'last_page' => $articles->lastPage(),
-                    'from' => $articles->firstItem(),
-                    'to' => $articles->lastItem()
-                ],
-                'data' => $articles
-            ];
-       
-
-        return response()->json($response);
+            return response()->json($response);
+            
+        }
     }
     
-
-    public function adminArticle()
-    {
-        $articles = Article::notDeleted()
-            ->with('category', 'keywords', 'user')
-            ->latest()
-            ->get();
-        if (Auth::user()->hasRole(['author'])) {
-            $articles = $articles->where('user_id', Auth::user()->id);
-        }
-        return view('admin.article.list', compact('articles'));
-    }
-
     public function destroy($articleId)
     {
         $article = Article::find($articleId);
@@ -313,8 +340,8 @@ public function searchUserArticles($userId,$queryString=null)
             return redirect()->route('home')->with('errorMsg', 'Article not found');
         }
 
-        if ($this->hasArticleAuthorization(Auth::user(), $article)) {
-            return redirect()->route('home')->with('errorMsg', 'Unauthorized request');
+        if (!auth()->user()->can('secureAccess', $article)) {
+            return redirect('/');
         }
         try {
             Article::where('id', $articleId)->update(['is_deleted' => 1]);
@@ -322,7 +349,7 @@ public function searchUserArticles($userId,$queryString=null)
             Log::error($this->getLogMsg($e));
             return redirect()->back()->with('errorMsg', $this->getMessage($e));
         }
-        return redirect()->route('admin-articles')->with('successMsg', 'Article deleted');
+        return redirect()->route('create-article')->with('successMsg', 'Article deleted');
     }
     public function readMyArticle($id)
     {
@@ -332,16 +359,18 @@ public function searchUserArticles($userId,$queryString=null)
 
     public function uploadImages(Request $request){
         $this->validate($request, 
-                ['files.*' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'],
-                );
+                ['files.*' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:10000']);
             $articleId=$request->articleId;
-            $article= Article::find($articleId);
 
+            $article= Article::find($articleId);
+            if (!auth()->user()->can('secureAccess', $article)) {
+                return response()->json(['success'=>'fail']);
+            }
             foreach($request->file('files') as $key => $image)
             {
                 
-                $name = time().'_'.$image->getClientOriginalName().'_'.$articleId.'_'.$key.'.'.$image->getClientOriginalExtension();
-                $destinationPath = public_path('/users').'/'.Auth::user()->id.'/article';
+                $name = time().'_'.$articleId.'_'.$key.'_'.$image->getClientOriginalName();
+                $destinationPath = public_path('/users').'/'.'article';
                 $createdImage=Auth::user()->images()->create(['src'=> $name,
                                     'caption' =>'other',
                                     'src_type' =>'internal',
@@ -354,7 +383,7 @@ public function searchUserArticles($userId,$queryString=null)
             return response()->json(['type'=>"pic"]);
 
   
-}
+    }
     public function addOrRemoveCover($id)
     {
         $article_image=DB::table('article_image')->where('image_id',$id);
@@ -389,7 +418,11 @@ public function searchUserArticles($userId,$queryString=null)
     }
     public function deleteImages(Request $req){
             
-            $ar=Article::find($req->article_id)->images();
+            $ar=Article::find($req->article_id);
+            if (!auth()->user()->can('secureAccess', $ar)) {
+                return response()->json(['success'=>'fail']);
+            }
+            $ar->images();
             foreach ($req->images as $key => $image) {
                 $ar->detach($image['id']);
                 Image::where('id',$image['id'])->delete();
@@ -400,3 +433,48 @@ public function searchUserArticles($userId,$queryString=null)
 
 
 }
+//////////////////////////////////////////
+//////////////////////////////////////////////
+///////////////////////////////////////////
+/*
+    private function getRelatedArticles(Article $article)
+    {
+        return Article::where('category_id', $article->category->id)
+            ->where('id', '!=', $article->id)
+            ->published()
+            ->latest()
+            ->take(3)
+            ->get();
+    }
+
+    public function edit($articleId)
+    {
+        $article = Article::find($articleId);
+        if (is_null($article)) {
+            return redirect()->route('home')->with('errorMsg', 'Article not found');
+        }
+
+        if ($this->hasArticleAuthorization(Auth::user(), $article)) {
+            return redirect()->route('home')->with('errorMsg', 'Unauthorized request');
+        }
+
+        $keywords = implode(' ', $article->keywords->pluck('name')->toArray());
+        $article = json_decode(json_encode($article));
+        $article->keywords = $keywords;
+
+        $categories = Category::active()->get();
+        return view('admin.article.update', compact('categories', 'article','keywords'));
+    }
+
+
+    public function adminArticle()
+    {
+        $articles = Article::notDeleted()
+            ->with('category', 'keywords', 'user')
+            ->latest()
+            ->get();
+        if (Auth::user()->hasRole(['author'])) {
+            $articles = $articles->where('user_id', Auth::user()->id);
+        }
+        return view('admin.article.list', compact('articles'));
+    }    

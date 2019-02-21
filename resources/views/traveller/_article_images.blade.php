@@ -13,7 +13,7 @@
             <!-- Event Thumb Start -->
             <div class="thinn-event-thumb thinn-event-grid mb-30">
                 <figure>
-                    <img :src="'{{asset('users/'.$article->user->id.'/article')}}'+'/'+image.src" alt=""  @click="mark(image.id)">
+                    <img :src="'{{asset('users/article')}}'+'/'+image.src" alt=""  @click="mark(image.id)">
                     @if($edit) 
                     <a :class="image.pivot.image_type=='cover'?'set-cover-icon':'set-cover-icon setted-cover'" href="#" @click="makeCover(image.id,pagination.current_page)" >
                     </a>

@@ -10,9 +10,9 @@ class HomeController extends Controller
 {
     public function index(Request $request)
     {
-        // $unsplash  = new \MahdiMajidzadeh\LaravelUnsplash\Photo();
-        // $photos    = $unsplash->random(['query'=>"Sri Lanka Lk ceylon sigiriya ella dunhida diyaluma",'orientation'=>'landscape','count'=>4])->get();
-        $photos=null;
+        $unsplash  = new \MahdiMajidzadeh\LaravelUnsplash\Photo();
+        $photos    = $unsplash->random(['query'=>"Sri Lanka Lk ceylon",'orientation'=>'landscape','count'=>1])->get();
+        // $photos=null;
         // if (Auth::check()) {
         //     $dashboard = new DashboardController();
         //     return $dashboard->index();

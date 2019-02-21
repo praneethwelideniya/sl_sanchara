@@ -100,6 +100,7 @@
                                         <li><a href="{{route('user-profile')}}">My Profile</a></li>
                                         <li><a href="{{route('user-profile-edit')}}">Edit Profile</a></li>
                                         <li><a href="{{route('edit-article')}}">Create Article</a></li>
+                                        <li><a href="{{route('create-trip')}}">Create Trip</a></li>
                                         <li><a href="{{route('logout')}}">Logout</a></li>
                                     </ul>
                                 </li>

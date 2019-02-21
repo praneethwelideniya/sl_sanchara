@@ -521,7 +521,7 @@ input[type="submit"].submit-btn.th-bg:hover{
     float: left;
     width: 100%;
     position: relative;
-    /* margin-bottom: 30px; */
+    margin-top: 50px;
 }
 .form-control, 
 .enter-email input[type="text"]{

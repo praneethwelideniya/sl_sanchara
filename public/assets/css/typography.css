@@ -134,6 +134,21 @@ figure img{
 	float:left;
 	width:100%;
 }
+.thumb-landscape ,
+figure {
+  float:left;
+  width:100%;
+  overflow:hidden;
+    position: relative;
+}
+.thumb-landscape  img{
+  float:left;
+  width:100%;
+  max-width: 100%;
+  min-width:100%;
+  width: 800px;
+  height: 650px;
+}
 img {
     max-width: 100%;
 }

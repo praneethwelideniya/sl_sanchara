@@ -769,7 +769,6 @@ if (token) {
 }
 
 Vue.config.productionTip = false;
-
 var MyComponent = Vue.component('my-profile', __webpack_require__(31));
 if (document.querySelector('#sl_sanchara')) {
     var app = new Vue({
@@ -818,6 +817,7 @@ if (document.querySelector('#sl_sanchara')) {
                     console.log(response);
                     _this.message = "Success";
                     _this.img = response.data.src;
+                    console.log(_this.img);
                     // this.resetForm();
                     // this.showNotification('File successfully upload!', true);
                     // this.fetchFile(this.activeTab);
@@ -1085,7 +1085,9 @@ if (document.querySelector('#traveller')) {
             pagination: {},
             travellers: {},
             offset: 5,
-            errors: {}
+            errors: {},
+            trip_id: '',
+            url: '/travellerslist'
         },
 
         methods: {
@@ -1095,7 +1097,7 @@ if (document.querySelector('#traveller')) {
             fetchtraveller: function fetchtraveller(page) {
                 var _this7 = this;
 
-                axios.get('travellerslist/' + '?page=' + page).then(function (result) {
+                axios.get(this.url + '/' + '?page=' + page).then(function (result) {
                     console.log("dsad");
                     _this7.travellers = result.data.data.data;
                     _this7.pagination = result.data.pagination;
@@ -1117,7 +1119,10 @@ if (document.querySelector('#traveller')) {
         },
 
         mounted: function mounted() {
-            console.log("traveller");
+            console.log(this.trip_id);
+            if (this.trip_id != '') {
+                this.url = '/trip/travellerslist/' + this.trip_id;
+            }
             this.fetchtraveller(this.pagination.current_page);
         },
 
@@ -1164,13 +1169,14 @@ if (document.querySelector('#blogs')) {
         data: {
             user_id: '',
             pagination: {},
-            blogs: {},
+            blogs: [],
             offset: 5,
             errors: {},
             travellers: {},
             searchKey: '',
             url: '',
-            url_string: ''
+            url_string: '',
+            blog_type: 'place'
         },
 
         methods: {
@@ -1181,9 +1187,9 @@ if (document.querySelector('#blogs')) {
                 var _this8 = this;
 
                 if (this.searchKey.length > 4) {
-                    this.url = this.url_string + '/' + this.searchKey + '?page=' + 1;
+                    this.url = this.url_string + '/' + this.blog_type + '/' + this.searchKey + '?page=' + 1;
                 } else {
-                    this.url = this.url_string + '?page=' + page;
+                    this.url = this.url_string + '/' + this.blog_type + '?page=' + page;
                 }
                 axios.get(this.url).then(function (result) {
                     _this8.blogs = result.data.data.data;
@@ -1213,6 +1219,10 @@ if (document.querySelector('#blogs')) {
                 this.timer = setTimeout(function () {
                     _this9.fetchblogs(_this9.pagination.current_page);
                 }, 1000);
+            },
+            typeChange: function typeChange() {
+                this.blogs = null;
+                this.fetchblogs(1);
             }
         },
 
@@ -1248,6 +1258,26 @@ if (document.querySelector('#blogs')) {
                 return pages;
             }
         }
+    });
+}
+if (document.querySelector('#trip_activity')) {
+    var trip_activity = new Vue({
+        el: '#trip_activity',
+        data: {
+            activity_type: 'transport'
+        },
+
+        methods: {
+
+            // changActivityType(event) {
+            //     console.log(event.target.value);
+            //     console.log(this.activity_type);
+            //      this.activity_type=event.target.value;
+            //      console.log(this.activity_type);
+            // }
+        },
+
+        mounted: function mounted() {}
     });
 }
 

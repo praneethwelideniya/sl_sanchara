@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ChangePasswordRequest;
 use App\Http\Requests\UserRequest;
-use App\Mail\SubscribeConfirmation;
+use App\Http\Requests\UserUpdateRequest;
+use App\Mail\EmailVerification;
 use App\Models\Address;
 use App\Models\Role;
 use App\Models\User;
@@ -15,6 +16,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use App\Http\Requests\UploadImageRequest;
+use DB;
 
 class UserController extends Controller
 {
@@ -74,54 +76,76 @@ class UserController extends Controller
         $newUser['title'] = "user";
         $newUser['website'] = "http://slsanchara.com";
         $newUser['password'] = Hash::make($request->get('password'));
+        $newUser['is_active']=0;
         // $newAddress = $request->only('city', 'country_name');
-        $newAddress['city'] = "badulla";
-        $newAddress['country_name'] = "Sri Lanka";
+        // $newAddress['city'] = "badulla";
+        // $newAddress['country_name'] = "Sri Lanka";
         $newUser['cover_image_id'] = 0;
         try {
-            $newAddress = Address::create($newAddress);
-            $newAddress['address_id'] = $newAddress->id;
+            // $newAddress = Address::create($newAddress);
+            // $newAddress['address_id'] = $newAddress->id;
             $newUser = User::create($newUser);
             // $newUser->roles()->attach($request->get('role_id'));
             $newUser->roles()->attach(8);
-            // $newUser->profileImage()
-            // ->create(['src'=>'profile_default.jpg','img_type'=>'profile','caption'=>'Profile Pic','src_type'=>'internal','user_id'=>$newUser->id]);
             $img=Image::create(['src'=>'profile_picture.png','img_type'=>'profile','caption'=>'Profile Pic','src_type'=>'internal','user_id'=>$newUser->id]);
             $newUser->profileImage()->associate($img)->save();
+            $token_string=time().'_'.str_random(8); 
+            DB::table('unvalidate_users')->insert(['user_id'=>$newUser->id,'token'=>$token_string]);
+            \Mail::to($newUser->email)->send(new EmailVerification($newUser,$token_string));
+            // $newUser->profileImage()
+            // ->create(['src'=>'profile_default.jpg','img_type'=>'profile','caption'=>'Profile Pic','src_type'=>'internal','user_id'=>$newUser->id]);
+            
         } catch (\Exception $e) {
             dd($e);
             //Log::error($this->getLogMsg($e));
             // return back()->withInput()->with('errorMsg', $this->getMessage($e));
         }
-        return redirect()->route('login-form')->with('successMsg', 'User created!');
+        return redirect()->route('login-form')->withErrors(['Verify Your Email before Login. Check emails']);
     }
 
     public function edit()
     {
+
         $user = Auth::user();
+        $fb_url=null;
+        $insta_url=null;
+        $youtube_url=null;
+        foreach ($user->socialMedia as $key => $value) {
+            if($value->name=="fb"){
+                $fb_url=$value->pivot->public_profile;
+            }
+            if($value->name=="instagram"){
+                $insta_url=$value->pivot->public_profile;   
+            }
+            if($value->name=="youtube"){
+                $youtube_url=$value->pivot->public_profile;
+            }
+        }
+        
         $public=0;     
-        return view('traveller.edit',compact('user','public'));
+        return view('traveller.edit',compact('user','public','fb_url','insta_url','youtube_url'));
     }
 
-    public function update(UserRequest $request, $userId)
+    public function update(UserUpdateRequest $request)
     {
-        $newUser = $request->only('name', 'username', 'email');
-        $newUser['is_active'] = $request->has('is_active');
+        $user=Auth::user();
         try {
-            if ($request->has('password')) {
-                $newUser['password'] = \Hash::make($request->get('password'));
+            $user->update(['name'=>$request->name]);
+            $user->socialMedia()->sync([1 => ['public_profile' => $request->fb_url],2 => ['public_profile' => $request->insta_url],3 => ['public_profile' => $request->youtube_url]]);
+            if($request->fb_url==null){
+                  $user->socialMedia()->detach(1);
             }
-            $user = User::where('id', $userId)->first();
-            $user->update($newUser);
-            if ($request->has('role_id')) {
-                $user->roles()->detach();
-                $user->roles()->attach($request->get('role_id'));
+            if($request->insta_url==null){
+                $user->socialMedia()->detach(2);
             }
+            if($request->youtube_url==null){
+                $user->socialMedia()->detach(3);
+            }            
         } catch (\Exception $e) {
             //Log::error($this->getLogMsg($e));
             // return back()->with('errorMsg', $e->getMessage());
         }
-        return redirect()->route('get-user', ['userId' => $userId])->with('successMsg', 'User updated');
+        return redirect()->back();
     }
 
     public function changePassword(ChangePasswordRequest $request)
@@ -260,13 +284,14 @@ class UserController extends Controller
         ]);
         $user = auth()->user();
         if ($request->hasFile('pic')) {
+        $old=$user->profileImage->src;    
         $image = $request->file('pic');
         $name = $user->id.'_profile_'.time().'.'.$image->getClientOriginalExtension();
         $destinationPath = public_path('/users').'/profile/';
         $newImage=$user->profileImage()->update(['src'=>$name]);
         $image->move($destinationPath, $name);
-
-        return response()->json(['type'=>"pro_pic",'name'=>$name, 'src'=> '/users/profile/'.$user->profileImage->src]);
+        unlink(public_path('/users/profile/'.$old));
+        return response()->json(['type'=>"pro_pic",'name'=>$name, 'src'=> '/users/profile/'.$name]);
     }
 }
     public function uploadPic(UploadImageRequest $request){

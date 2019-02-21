@@ -1,4 +1,4 @@
-<div id="traveller">
+
 <div class="container">
     <div class="row">
         <div v-for="(tra,index) in travellers" v-cloak>
@@ -46,5 +46,4 @@
         </nav>
         </div>
     </div>
-</div>
 </div>

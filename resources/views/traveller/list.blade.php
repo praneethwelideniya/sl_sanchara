@@ -1,10 +1,15 @@
 @extends('layouts.master')
+@section('styles')
+<link href="{{ mix('/css/app.css') }}" rel="stylesheet">
+@endsection
 @section('content')
             <div class="main-contant"> 
                 <div class="section">
                     <div class="container">
                         <div class="row">
-                            @include('traveller._traveller_list');
+                            <div id="traveller">
+                                @include('traveller._traveller_list');
+                            </div>
                         </div>
                     </div><!-- / Container -->
                 </div><!-- /Blog Grid Section -->

@@ -25,13 +25,20 @@ class UserRequest extends FormRequest
     {
         $rules = [
             //'role_id' => 'required',
-            'name' => 'required',
-            'email' => 'required|email',
+            'name' => 'required|min:6',
+            'email' => 'required|email|unique:users',
+            'password' => 'required|min:4|confirmed'
         ];
-
-        if ($this->isMethod('POST')) {
-            $rules['password'] = 'required';
-        }
         return $rules;
     }
+    public function messages()
+    {
+        return [
+            'name.required' => 'Name is required',
+            'email.required' => 'email is required',
+            'password.required'  => 'password is required',
+            'password' => 'password not valid'
+        ];
+    }
+    
 }

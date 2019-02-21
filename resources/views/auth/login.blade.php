@@ -30,10 +30,8 @@
                                                     <input type="password" data-msg-required="Please enter your email address" data-msg-email="Please enter a valid email address" maxlength="100" class="form-control " name="password" id="password" placeholder="Password" required>
                                                     <div class="col-md-6">
 
-                                                        @if ($errors->has('password'))
-                                                            <span class="help-block">
-                                                                <strong>{{ $errors->first('password') }}</strong>
-                                                            </span>
+                                                        @if($errors->any())
+                                                                 <h6><strong style="color: red;">{{$errors->first()}}</strong></h6>
                                                         @endif
                                                     </div>
                                                 </div>
@@ -49,13 +47,6 @@
                                             </div>
                                             <div class="col-md-12">
                                                 <input class="btn" type="submit" value="submit" data-loading-text="Loading...">
-                                            </div>
-                                            <!--Input Field End-->
-                                            <div class="alert alert-success hidden animated pulse" id="contactSuccess">
-                                                Thanks, your message has been sent to us.
-                                            </div>
-                                            <div class="alert alert-danger hidden animated shake" id="contactError">
-                                                <strong>Error!</strong> There was an error sending your message.
                                             </div>
                                         </div>
                                     </form>

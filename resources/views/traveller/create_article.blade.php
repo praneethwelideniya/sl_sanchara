@@ -61,7 +61,7 @@
                                                                         <div class="col-md-5">
                                                                             <div class="form-group">
                                                                                 <label>Keywords:</label>
-                                                                                <input type="text" id="keyword" class="form-controll" name="keywords" placeholder="Keywords" value="">
+                                                                                <input type="text" id="tokenfield" class="form-controll" name="keywords" placeholder="Keywords" value="{{($article!=null)?old('keywords',$article->keywords) :old('keywords')}}">
                                                                             </div>
                                                                         </div>
                                                                         <div class="col-md-5">
@@ -249,6 +249,7 @@
                 var action = $(this).val() == "people" ? "user" : "content";
                 $("#del-user-id").attr("value", action);
             });
+
         });
         </script>
 @endsection
