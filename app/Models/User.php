@@ -5,10 +5,12 @@ namespace App\Models;
 use Carbon\Carbon;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Actuallymab\LaravelComment\CanComment;
 
 class User extends Authenticatable
 {
     use Notifiable;
+    use CanComment;
     
     protected $guarded = ['id'];
     protected $appends = ['createdAtHuman'];

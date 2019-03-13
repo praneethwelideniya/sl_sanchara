@@ -12,7 +12,7 @@
                 </div>
 
                 <div class="modal-footer">
-                    <button class="button" @click="deleteFile()">
+                    <button class="button" @click="deleteAsset()">
                         Confirm
                     </button>
                     <button class="button" @click="cancelDeleting()">

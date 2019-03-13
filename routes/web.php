@@ -32,9 +32,10 @@ Route::get('search/articles/{type}/{search_query?}', 'ArticleController@search')
 Route::get('search/user-articles/{user_id}/{type}/{search_query?}','ArticleController@searchUserArticles')->name('search-user-article');
 
 //Comment
-Route::post('comment/{articleId}', 'CommentController@store')->name('add-comment');
-Route::get('comment/{commentId}/confirm', 'CommentController@confirmComment')->name('confirm-comment');
-
+Route::get('/get_comments/{id}/{type}','CommentController@getComments');
+Route::post('/add_comment','CommentController@addComment');
+Route::post('/delete_comment','CommentController@deleteComment');
+Route::post('/update_comment','CommentController@updateComment');
 //Category
 Route::get('category/{categoryId}', 'CategoryController@show')->name('get-category');
 
@@ -86,6 +87,14 @@ Route::group(['middleware' => 'customAuth'], function () {
     Route::post('trip/activity/create','TripController@createActivity')->name('create-activity');
     Route::post('trip/activity/update/{id}','TripController@updateActivity')->name('update-activity');
     Route::post('trip/store','TripController@store')->name('store-trip');
+
+    Route::get('/trip/{id}/{type}/del_pub','TripController@togleTrip');
+    Route::get('/trip_activity/{id}/{type}/del_pub','TripController@togleActivity');
+
+    Route::post('/asset/delete/{type}/{id}','ArticleController@deleteAsset');
 });
 
 Route::get('trip/{id?}','TripController@show')->name('show-trip');
+
+Route::get('/test_comment','CommentController@test');
+

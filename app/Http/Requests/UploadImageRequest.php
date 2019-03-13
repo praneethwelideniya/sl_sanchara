@@ -24,7 +24,7 @@ class UploadImageRequest extends FormRequest
     public function rules()
     {
         return [
-            'pic' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+            'pic' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:5000'
         ];
     }
 
@@ -33,7 +33,7 @@ class UploadImageRequest extends FormRequest
             'pic.required' => 'Picture is reuired',
             'pic.image' => 'File must be a Image',
             'pic.image' =>'This type is not support',
-            'pic.mac' =>'Size should be less than 2MB'
+            'pic.max' =>'Maximum file size is 5MB'
         ];
     }
 }

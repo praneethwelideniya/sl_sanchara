@@ -6,20 +6,19 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use League\CommonMark\CommonMarkConverter;
+use Actuallymab\LaravelComment\Contracts\Commentable;
+use Actuallymab\LaravelComment\HasComments;
 
-class Article extends Model
+class Article extends Model implements Commentable
 {
+    use HasComments;
+
     protected $guarded = ['id'];
     protected $dates = ['published_at'];
 
     public function user()
     {
         return $this->belongsTo(User::class);
-    }
-
-    public function comments()
-    {
-        return $this->hasMany(Comment::class)->with('user')->orderBy('id');
     }
 
     public function category()
@@ -41,10 +40,6 @@ class Article extends Model
     public function coverImage()
     {
         return $this->belongsTo(Image::class,'cover_image_id');
-    }
-    public function keywords()
-    {
-        return $this->belongsToMany(Keyword::class, 'article_keyword');
     }
 
     public function hits()
@@ -94,7 +89,6 @@ class Article extends Model
         $perPage =12;
 
         $categoryAlias = $request->route('categoryAlias');
-        $keywordName = $request->route('keywordName');
 
         if (!is_null($categoryAlias)) {
             $category = Category::where('alias', $categoryAlias)->first();
@@ -102,14 +96,7 @@ class Article extends Model
                 return collect([]);
             }
             $articleQuery = Article::where('category_id', $category->id);
-        } elseif (!is_null($keywordName)) {
-            $keyword = Keyword::where('name', $keywordName)->first();
-            if (is_null($keyword)) {
-                return collect([]);
-            }
-            $articleIds = $keyword->articles->pluck('id')->toArray();
-            $articleQuery = Article::whereIn('id', $articleIds);
-        } else {
+        }else {
             $articleQuery = Article::published()->notDeleted();
         }
 

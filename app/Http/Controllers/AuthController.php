@@ -52,7 +52,7 @@ class AuthController extends Controller
             return back()->withErrors(['Verify Your Email before Login']);   
         }
         if (Auth::attempt($credentials, $remember)) {
-                return redirect()->route('user-profile');
+                return redirect()->back();
             
             //return redirect()->route('admin-dashboard');
         }

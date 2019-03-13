@@ -11,6 +11,8 @@ use App\Models\Keyword;
 use App\Models\User;
 use App\Models\Image;
 use App\Models\Trip;
+use App\Models\TripActivity;
+use App\Models\Comment;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
@@ -33,23 +35,13 @@ class ArticleController extends Controller
             ->notDeleted()
             ->with([
                 'user',
-                'category',
-                'keywords',
-                'comments' => function ($comments) {
-                    return $comments->published();
-                },
-                'comments.user',
-                'comments.replies' => function ($replies) {
-                    return $replies->published();
-                },
-                'comments.replies.user'
+                'category'
             ])->first();
-
-        if (is_null($article)) {
-            return redirect()->route('home')->with('warningMsg', 'Article not found');
-        }
-        
+            if (is_null($article)) {
+                return redirect('/');
+            }
         $images=$this->getArticleImages($articleId);
+
         return view('traveller.article', compact('article','images'));
     }
 
@@ -63,19 +55,12 @@ class ArticleController extends Controller
         if (!auth()->user()->can('secureAccess', $article)) {
                 return redirect('/');
             }
-        $updatedArticle = $request->only(['heading', 'content', 'category_id', 'language']);
+        $updatedArticle = $request->only(['heading', 'content', 'category_id', 'language','keywords','is_published']);
         $updatedArticle['is_comment_enabled'] = $request->input('is_comment_enabled');
-        $keywordsToAttach = array_unique(explode(' ', $request->get('keywords')));
         try {
             $article->update($updatedArticle);
 
-            //remove all keywords then add all keywords from input
-            $article->keywords()->detach();
-            foreach ($keywordsToAttach as $keywordToAttach) {
-                $newKeyword = Keyword::firstOrCreate(['name' => $keywordToAttach]);
-                $article->keywords()->attach($newKeyword->id);
-
-            }
+            
         } catch (\PDOException $e) {
             // Log::error($this->getLogMsg($e));
             return response()->json(['errorMsg' => 'error'], Response::HTTP_INTERNAL_SERVER_ERROR);
@@ -93,7 +78,7 @@ class ArticleController extends Controller
         $article=null;
         $images=null;
         if($id!=null){
-            $article=Article::find($id);
+            $article=Article::where('id',$id)->notDeleted()->first();
             if (!auth()->user()->can('secureAccess', $article)) {
                 return redirect('/');
             }
@@ -109,7 +94,7 @@ class ArticleController extends Controller
 
         $clientIP = $_SERVER['REMOTE_ADDR'];
 
-        $newArticle = $request->only(['heading', 'content', 'category_id', 'language','keywords']);
+        $newArticle = $request->only(['heading', 'content', 'category_id', 'language','keywords','is_published']);
         $newArticle['is_comment_enabled'] = $request->input('is_comment_enabled');
         $newAddress = ['ip' => $clientIP];
 
@@ -177,13 +162,20 @@ class ArticleController extends Controller
             $articles=$articles->latest()->paginate(9);
 
             $articles->getCollection()->transform(function($item, $key) {
+                $reply_count=0;
+                foreach ($item->comments as $key => $value) {
+                    $reply_count+=$value->totalCommentsCount();
+                }
                 return [
                     'heading' =>$item->heading,
                     'img_src' =>'users/article/'.$item->images()->wherePivot('image_type','cover')->first()['src'],
                     'id'=>$item->id,
+                    'author_name'=>explode(' ',$item->user->name)[0],
+                    'author_id'=>$item->user->id,
                     'd' => $item->published_at->format('d'),
                     'M' => $item->published_at->format('M'),
                     'Y' => $item->published_at->format('Y'),
+                    'comment_count'=>$item->totalCommentsCount()+ $reply_count
                 ];
             });
 
@@ -204,7 +196,7 @@ class ArticleController extends Controller
             return response()->json($response);
         }
         elseif ($type=='trip') {
-            $trips=Trip::where('type','public');
+            $trips=Trip::where('type','public')->notDeleted();
             if($queryString!=null && strlen($queryString)>3){
             $trips=$trips
             ->where('name', 'LIKE', "%$queryString%")
@@ -214,13 +206,18 @@ class ArticleController extends Controller
             }
             $trips=$trips->latest()->paginate(9);
             $trips->getCollection()->transform(function($item, $key) {
+                $reply_count=0;
+                foreach ($item->comments as $key => $value) {
+                    $reply_count+=$value->totalCommentsCount();
+                }
                 return [
                     'name' =>$item->name,
                     'img_src' =>'trip/transport.jpg',
                     'id'=>$item->id,
                     'start_time' => $item->start_time->format('Y-M-d'),
                     'end_time' => $item->end_time->format('Y-M-d'),
-                    'status' => $item->status
+                    'status' => $item->status,
+                    'comment_count'=>$item->totalCommentsCount()+$reply_count
                 ];
             });
 
@@ -262,13 +259,20 @@ class ArticleController extends Controller
             //     return $item;
             // });
             $articles->getCollection()->transform(function($item, $key) {
+                    $reply_count=0;
+                foreach ($item->comments as $key => $value) {
+                    $reply_count+=$value->totalCommentsCount();
+                }
                 return [
                     'heading' =>$item->heading,
                     'img_src' =>'users/article/'.$item->images()->wherePivot('image_type','cover')->first()['src'],
                     'id'=>$item->id,
+                    'author_name'=>explode(' ',$item->user->name)[0],
+                    'author_id'=>$item->user->id,
                     'd' => $item->published_at->format('d'),
                     'M' => $item->published_at->format('M'),
                     'Y' => $item->published_at->format('Y'),
+                    'comment_count'=>$item->totalCommentsCount()+$reply_count
                 ];
             });
 
@@ -290,10 +294,10 @@ class ArticleController extends Controller
         }
         elseif ($type=='trip') {
             if(!Auth::guest() && Auth::user()->id==$userId){
-                   $trips=User::find($userId)->trips(); 
+                   $trips=User::find($userId)->trips()->notDeleted(); 
             }
             else{
-                $trips=User::find($userId)->trips()->where('type','public')->wherePivot('status', 'confirmed');        
+                $trips=User::find($userId)->trips()->notDeleted()->where('type','public')->wherePivot('status', 'confirmed');        
             }    
             if($queryString!=null && strlen($queryString)>3){
             $trips=$trips
@@ -304,13 +308,18 @@ class ArticleController extends Controller
             }
             $trips=$trips->latest()->paginate(9);
             $trips->getCollection()->transform(function($item, $key) {
+                $reply_count=0;
+                foreach ($item->comments as $key => $value) {
+                    $reply_count+=$value->totalCommentsCount();
+                }
                 return [
                     'name' =>$item->name,
                     'img_src' =>'trip/transport.jpg',
                     'id'=>$item->id,
                     'start_time' => $item->start_time->format('Y-M-d'),
                     'end_time' => $item->end_time->format('Y-M-d'),
-                    'status' => $item->status
+                    'status' => $item->status,
+                    'comment_count'=>$item->totalCommentsCount()+$reply_count
                 ];
             });
 
@@ -416,19 +425,48 @@ class ArticleController extends Controller
 
         return response()->json($response);
     }
+
+    public function addComment(Request $req){
+
+        $user=Auth::user();
+        $article=Article::find($req->id);
+        $user->comment($article, $req->comment);
+        return response()->json(['success'=>true]);
+    }
+
     public function deleteImages(Request $req){
             
             $ar=Article::find($req->article_id);
             if (!auth()->user()->can('secureAccess', $ar)) {
                 return response()->json(['success'=>'fail']);
             }
-            $ar->images();
+            $ar=$ar->images();
             foreach ($req->images as $key => $image) {
                 $ar->detach($image['id']);
                 Image::where('id',$image['id'])->delete();
             }
             
-    }       
+    } 
+
+    public function deleteAsset($type,$id){
+        switch ($type) {
+            case 'article':
+                Article::find($id)->update(['is_deleted'=>1]);
+                return response()->json(['success'=>true]);    
+                break;
+            case 'trip':
+                Trip::find($id)->update(['is_deleted'=>1]);
+                 return response()->json(['success'=>true]); 
+                break;
+            case 'activity':
+                TripActivity::find($id)->update(['is_deleted'=>1]);
+                return response()->json(['success'=>true]);
+                break;    
+            default:
+                return response()->json(['success'=>false]);
+                break;
+        }
+    }      
 
 
 

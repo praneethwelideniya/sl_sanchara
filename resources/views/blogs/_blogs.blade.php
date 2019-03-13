@@ -63,6 +63,20 @@
                                             <div class="date-box-holder">
                                                 <div class="title-holder">
                                                     <h5 class="title font-18"><a :href="'{{route('articles')}}'+'/'+article.id">@{{article.heading}}</a></h5>
+                                                    <ul class="blog-meta">
+                                                        <li>
+                                                            <i class="icon-user"></i>
+                                                            <a :href="'{{route('user-profile')}}'+'/'+article.author_id">@{{article.author_name}}</a>
+                                                        </li>
+                                                        <li>
+                                                            <i class="icon-comment"></i>
+                                                            <a href="#">@{{article.comment_count}}</a>
+                                                        </li>
+                                                        <li>
+                                                            <i class="icon-eye"></i>
+                                                            <a href="#">0</a>
+                                                        </li>
+                                                    </ul>
                                                 </div>
                                                 <div class="date-box">
                                                     <strong class="font-50">@{{article.d}}</strong>

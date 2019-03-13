@@ -1,9 +1,8 @@
-<div role="tabpanel" class="tab-pane active" id="trip_users">
+<div role="tabpanel" class="tab-pane" id="trip_users">
 	<div class="section">
         <div class="container">
             <div class="row">
-                <div id="traveller">
-                	<input type="hidden" :value="trip_id={{$id}}">
+                <div>
                     @include('traveller._traveller_list');
                 </div>
             </div>

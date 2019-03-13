@@ -85,6 +85,7 @@
                                         <!-- Tab Wrap End -->
                                     </div>
                                 </div>
+                                @include('comments._comment',['id'=>$article->id,'type'=>'article'])
                             </div>
                         </div>
                     </div><!-- / Container -->
@@ -95,12 +96,4 @@
 @endsection
 @section('scripts')
 <script src="{{ mix('js/user_profile.js') }}" type="application/javascript"></script>
-<script type="text/javascript">
-    $(document).ready(function(){
-       $('#edit_content').click(function(){
-            $("#idshow").hide();
-            $("#idedit").show();
-        });            
-    }); 
-</script>
 @endsection

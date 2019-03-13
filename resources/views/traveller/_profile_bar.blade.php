@@ -20,24 +20,26 @@
                                 <div class="row">     
                                     <h1 style="font-size:40px;">{{$user->name}}</h1>
                                 </div>
-                                @if($complete==1)
                                 <div class="row">
                                     <ul>
+                                        @foreach($user->socialMedia as $social)
                                         <li> 
-                        					<a class="social" title="Facebook" href="#"><i class="icon-facebook3"></i></a>
-                    					</li>
-                    					<li>
-                        					<a class="social" title="Twitter" href="#"> <i class="icon-twitter3"></i> </a> 
-                    					</li>
-                    					<li> 
-                        					<a class="social" title="Google Bookmark" href="#"> <i class="icon-googleplus"></i> </a> 
-                    					</li> 
-                    					<li>
-                            				<a class="social" href="#"> <i class="icon-linkedin3"></i> </a>
-                        				</li>
+                                            <a class="social" title="{{$social->name}}" href="{{$social->pivot->public_profile}}">
+                                                @if($social->name=="fb")
+                                                <i class="icon-facebook3"></i>
+                                                @endif
+                                                @if($social->name=="instagram")
+                                                <i class="icon-instagram"></i>
+                                                @endif
+                                                @if($social->name=="youtube")
+                                                <i class="icon-youtube"></i>
+                                                @endif
+                                            </a>
+                                        </li>
+                                        @endforeach
                     				</ul>    
                                 </div>
-                                @endif
+                                
                             </div>
                             @if($complete==1)
                             <div class="row">

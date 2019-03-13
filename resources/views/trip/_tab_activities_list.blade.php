@@ -1,6 +1,5 @@
 <div role="tabpanel" class="tab-pane active" id="activities">
                 <div class="section">
-                    <div class="container">
                         <div class="row">
                             <div class="col-md-12">
                                 @foreach($trip->activities as $key => $activity)
@@ -32,7 +31,7 @@
                                             @if($activity->currentActivity!=null)
                                             @if($activity->activity_type==='transport')
                                             <h5 class="title font-18"><a href="#"><i class="icon-map-pin2"></i></a> Start Location:{{$activity->currentActivity->start_location}} </h5>
-                                            <h5 class="title font-18"><a href="#"><i class="icon-map-pin2"></a></i> End Location:{{$activity->currentActivity->end_location}}</h5>
+                                            <h5 class="title font-18"><a href="#"><i class="icon-map-pin2"></i></a> End Location:{{$activity->currentActivity->end_location}}</h5>
                                             <h5 class="title font-18">Travel By:{{$activity->currentActivity->transportType->name}}</h5>
                                             @elseif($activity->activity_type==='accommodate')
                                             <h5 class="title font-18"><a href="#"><i class="icon-map-pin2"></i></a> Location:{{$activity->currentActivity->accommodation_name}} </h5>
@@ -48,6 +47,5 @@
                                 @endforeach
                             </div>
                         </div>
-                    </div><!-- / Container -->
                 </div><!-- /Blog Grid Section -->
 </dev></div>

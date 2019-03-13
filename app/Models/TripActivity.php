@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class TripActivity extends Model
 {
-    protected $fillable=['activity_type','start','end','cost','description'];
+    protected $fillable=['activity_type','start','end','cost','description','is_published','is_deleted'];
 	protected $dates = ['start','end'];
     // public function tripPlace(){
     // 	return $this->hasOne(TripPlace::class,'activity_id');
@@ -20,6 +20,9 @@ class TripActivity extends Model
     // public function tripMeal(){
     // 	return $this->hasOne(TripMeal::class,'activity_id');
     // }
+    public function trip(){
+        return $this->belongsTo(Trip::class,'trip_id');
+    }
     public function currentActivity()
     {
     	switch ($this->activity_type){

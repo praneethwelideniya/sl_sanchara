@@ -64,6 +64,9 @@
                                                 <li role="presentation" class="active"><a href="#activities" aria-controls="activities" role="tab" data-toggle="tab">Activities</a></li>
                                                 <li role="presentation"><a href="#activity_calander" aria-controls="activity_calander" role="tab" data-toggle="tab">Calender</a></li>
                                                 <li role="presentation"><a href="#trip_users" aria-controls="trip_users" role="tab" data-toggle="tab">Travellers</a></li>
+                                                @if(Auth::check() and Auth::user()->trips()->find($trip->id)!=null)
+                                                <li role="presentation"><a href="{{route('create-trip',$trip->id)}}" >Edit</a></li>
+                                                @endif
                                             </ul>
                                             <!-- Tab panes -->
                                             <div class="tab-content">
@@ -74,6 +77,7 @@
                                         </div>
                                         <!-- Tab Wrap End -->
                                     </div>
+                                    @include('comments._comment',['id'=>$trip->id,'type'=>'trip'])
                                 </div>
                         </div>
                     </div><!-- / Container -->

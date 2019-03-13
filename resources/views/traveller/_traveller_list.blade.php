@@ -10,22 +10,22 @@
                 </figure>
                 <div class="text">
                 <ul>
-                    <li> 
-                        <a class="social" title="Facebook" href="#"><i class="icon-facebook3"></i></a>
-                    </li>
                     <li>
-                        <a class="social" title="Twitter" href="#"> <i class="icon-twitter3"></i> </a> 
+                        <a class="social" title="sl sanchara" :href="'/traveller/profile/'+tra.id">
+                            <i  class="icon-mountains-with-moon"></i>
+                        </a>
                     </li>
-                    <li> 
-                        <a class="social" title="Google Bookmark" href="#"> <i class="icon-googleplus"></i> </a> 
-                    </li> 
-                    <li>
-                        <a class="social" href="#"> <i class="icon-linkedin3"></i> </a>
+                    <li v-for="socil in tra.social_media"> 
+                        <a class="social" :title="socil.name" :href="socil.pivot.public_profile">
+                            <i v-if="socil.name=='fb'" class="icon-facebook3"></i>
+                            <i v-if="socil.name=='instagram'" class="icon-instagram"></i>
+                            <i v-if="socil.name=='youtube'" class="icon-youtube"></i>
+                        </a>
                     </li>
                 </ul>
                     <h5 class="title font-18">@{{tra.name}}</h5>
                 </div>
-                <a class="btn btn-2" :href="'{{route('user-profile')}}'+'/'+tra.id">View detail</a>
+                <!-- <a class="btn btn-2" :href="route('user-profile')'+'/'+tra.id">View detail</a>-->
             </div>
             <!-- /Event Thumb End -->
         </div>        

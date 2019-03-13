@@ -54,9 +54,7 @@
         <link href="{{asset('assets/css/responsive.css')}}" rel="stylesheet">
         @yield('styles')
         
-         <script src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyBwZGsVxOBgKXku6sBNI6uYxlfetT_SJeY"></script>
          <script src="{{asset('assets/js/jquery.js')}}"></script>
-         <script src="https://cdn.jsdelivr.net/gmap3/7.2.0/gmap3.min.js"></script>
         <!-- Animate CSS -->
         
         <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -222,21 +220,8 @@
         <!-- Date Picker -->
         <script type="text/javascript" src="{{asset('assets/js/moment.min.js')}}"></script>
         <script type="text/javascript" src="{{asset('assets/js/daterangepicker.min.js')}}"></script>
-        <!-- Map Api Library -->
-<!-- 
-          <script>
-    $('#map')
-      .gmap3({
-        center:[7.8, 80.7],
-        zoom:8
-      })
-      .marker([
-        {city:"Badulla, Sri Lanka"}
-      ])
-      .on('click', function (marker) {
-        marker.setIcon('http://maps.google.com/mapfiles/marker_green.png');
-      });
-  </script> -->
+
+
         <!-- Input Number Js -->
         <script src="{{asset('assets/js/input-number.js')}}"></script>
         <!--Custom Script-->

@@ -3,7 +3,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    @foreach($trip->activities as $key => $activity)
+                    @foreach($trip->activities()->where('is_deleted',0)->get() as $key => $activity)
                     <!-- Blog Thumb Start -->
                     <div class="thinn-event-list mb-30">
                         <figure>
@@ -11,7 +11,6 @@
                         </figure>
                         <div class="text">
                             <div class="form-group">
-                                    <div class="content">
                                         <form action="{{ route('update-activity',$activity->id) }}" 
                                         method="post">
                                             {{ csrf_field() }}
@@ -44,9 +43,6 @@
                                                     <div class="form-group">
                                                         <label>Description</label>
                                                         <input type="text" class="form-controll" placeholder="Here can be your description" name="description" value="{!! $activity->description !!}">
-                                                            
-                                                            
-                                                        </textarea>
                                                     </div>
                                                 </div>
                                             </div>
@@ -64,14 +60,14 @@
                                             @if($trip==null)
                                             Create
                                             @else
-                                            Update
+                                            Updates
                                             @endif
                                             </button>
+                                            <button class="btn btn-info btn-fill pull-right" @click="prepareToDeleteActivity({{$activity->id}})" data-toggle="tab">Delete</button>   
                                             <div class="clearfix"></div>
                                         </div>    
                                             
                                     </form>
-                                    </div>
                                 </div>
                         </div>
                     </div>

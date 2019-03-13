@@ -17,7 +17,13 @@
                                             <!-- Nav tabs -->
                                             <ul class="nav nav-tabs theme-tab th-bg" role="tablist">
                                                 <li role="presentation" class="active"><a href="#detail" aria-controls="detail" role="tab" data-toggle="tab">Detail</a></li>
+                                                @if(!is_null($article))
                                                 <li role="presentation"><a href="#photos" aria-controls="photos" role="tab" data-toggle="tab">Photos</a></li>
+                                                <div id="deleteAsset" type="article" asset_id="{{$article->id}}">
+                                                    <li role="presentation"><a aria-controls="photos" role="tab" @click="prepareToDelete()" data-toggle="tab">Delete</a></li>
+                                                    @include('traveller._delete_confirm');
+                                                </div>
+                                                @endif
                                             </ul>
                                             <!-- Tab panes -->
                                             <div class="tab-content">
@@ -75,11 +81,28 @@
                                                                         </div>               
                                                                     </div>
                                                                     <div class="row">
-                                                                        <div class="col-md-12">
+                                                                        <div class="col-md-6">
                                                                             <div class="form-group">
                                                                                 <label>Heading</label>
                                                                                 <input type="text" class="form-controll" placeholder="Heading" name="heading"
                                                                                  value="{{ ($article!=null)?$article->heading : ''}}">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-4">
+                                                                            <div class="form-group">
+                                                                                <label>Publish</label>
+                                                                                <select class="form-controll" id="cmnt" name="is_published">   
+                                                                                    <option value="1"
+                                                                                        @if($article==null || $article->is_published==1)
+                                                                                        selected="selected"
+                                                                                        @endif 
+                                                                                    >Publish</option>
+                                                                                    <option value="0"
+                                                                                        @if($article!=null && $article->is_published==0)
+                                                                                        selected="selected"
+                                                                                        @endif 
+                                                                                    >Un Publish</option>
+                                                                                </select>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -158,98 +181,5 @@
 //     { name: 'about', items: [ 'About' ] }
 // ]
 //         });
-        </script>
-    <script>
-      // This example adds a search box to a map, using the Google Place Autocomplete
-      // feature. People can enter geographical searches. The search box will return a
-      // pick list containing a mix of places and predicted search terms.
-
-      // This example requires the Places library. Include the libraries=places
-      // parameter when you first load the API. For example:
-      // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
-
-      
-        $(document).ready(function(){
-       var map = new google.maps.Map(document.getElementById('map'), {
-          center: {lat: 7.8688, lng: 151.2195},
-          zoom: 13,
-          mapTypeId: 'roadmap'
-        });
-
-        // Create the search box and link it to the UI element.
-        var input = document.getElementById('pac-input');
-        var searchBox = new google.maps.places.SearchBox(input);
-        map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
-
-        // Bias the SearchBox results towards current map's viewport.
-        map.addListener('bounds_changed', function() {
-          searchBox.setBounds(map.getBounds());
-        });
-
-        var markers = [];
-        // Listen for the event fired when the user selects a prediction and retrieve
-        // more details for that place.
-        searchBox.addListener('places_changed', function() {
-          var places = searchBox.getPlaces();
-
-          if (places.length == 0) {
-            return;
-          }
-
-          // Clear out the old markers.
-          markers.forEach(function(marker) {
-            marker.setMap(null);
-          });
-          markers = [];
-
-          // For each place, get the icon, name and location.
-          var bounds = new google.maps.LatLngBounds();
-          places.forEach(function(place) {
-            if (!place.geometry) {
-              console.log("Returned place contains no geometry");
-              return;
-            }
-            var icon = {
-              url: place.icon,
-              size: new google.maps.Size(71, 71),
-              origin: new google.maps.Point(0, 0),
-              anchor: new google.maps.Point(17, 34),
-              scaledSize: new google.maps.Size(25, 25)
-            };
-
-            // Create a marker for each place.
-            markers.push(new google.maps.Marker({
-              map: map,
-              icon: icon,
-              title: place.name,
-              position: place.geometry.location
-            }));
-
-            if (place.geometry.viewport) {
-              // Only geocodes have viewport.
-              bounds.union(place.geometry.viewport);
-            } else {
-              bounds.extend(place.geometry.location);
-            }
-          });
-          map.fitBounds(bounds);
-        });           
-    }); 
-
-    </script>
- <script type='text/javascript'>
-
-        $(document).ready(function(){
-                var up_url= "{{route('upload_article_pic')}}";
-
-            $('#upload').click(function(){
-                console.log($('#pic')[0].files.length);
-            });
-            $("#delete_pic").click(function() {
-                var action = $(this).val() == "people" ? "user" : "content";
-                $("#del-user-id").attr("value", action);
-            });
-
-        });
         </script>
 @endsection

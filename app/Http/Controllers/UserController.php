@@ -26,7 +26,7 @@ class UserController extends Controller
         return view('backend.userList', compact('users'));
     }
     public function travellers(){
-        $travellers=User::select('id','name','profile_image_id')->with('profileImage')->paginate(12);
+        $travellers=User::select('id','name','profile_image_id')->with('profileImage','socialMedia')->paginate(12);
             $response = [
                 'pagination' => [
                     'total' => $travellers->total(),
@@ -36,7 +36,8 @@ class UserController extends Controller
                     'from' => $travellers->firstItem(),
                     'to' => $travellers->lastItem()
                 ],
-                'data' => $travellers
+                'data' => $travellers,
+                'img_url'=>'http://192.168.8.101:8000/users/profile/profile_picture.png'
             ];
        
 
@@ -279,29 +280,35 @@ class UserController extends Controller
     }
 
     public function uploadProPic(UploadImageRequest $request){
-        $this->validate($request, [
-            'pic' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
-        ]);
+        // $this->validate($request, [
+        //     'pic' => 'required|image|mimes:jpeg,png,jpg,gif,svg'
+        // ]);
         $user = auth()->user();
         if ($request->hasFile('pic')) {
         $old=$user->profileImage->src;    
-        $image = $request->file('pic');
-        $name = $user->id.'_profile_'.time().'.'.$image->getClientOriginalExtension();
+        $originalImage = $request->file('pic');
+        $name = $user->id.'_profile_'.time().'.'.$originalImage->getClientOriginalExtension();
         $destinationPath = public_path('/users').'/profile/';
         $newImage=$user->profileImage()->update(['src'=>$name]);
-        $image->move($destinationPath, $name);
+        $image=\Intervention\Image\Facades\Image::make($originalImage);
+        $image->resize(300,300);
+        $image->save(public_path('/users/profile/'.$name));
         unlink(public_path('/users/profile/'.$old));
         return response()->json(['type'=>"pro_pic",'name'=>$name, 'src'=> '/users/profile/'.$name]);
+    }
+    else{
+        return response()->json(['dsa'=>'sa']);
     }
 }
     public function uploadPic(UploadImageRequest $request){
         $this->validate($request, [
-            'pic' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+            'pic' => 'required|image|mimes:jpeg,png,jpg,gif,svg'
         ]);
         $user = auth()->user();
         if ($request->hasFile('pic')) {
-        $image = $request->file('pic');
-        $name = time().'.'.$image->getClientOriginalExtension();
+        $originalImage = $request->file('pic');
+        $image=Image_::make($originalImage);
+        $name = time().'.'.$originalImage->getClientOriginalExtension();
         $destinationPath = public_path('/users').'/'.$user->id.'/other/';
         $newImage=$user->images()->create(['src'=> $name,
                             'caption' =>'other',
